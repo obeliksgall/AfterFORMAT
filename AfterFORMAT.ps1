@@ -16,11 +16,12 @@
         <Button Name="InstallApps" Content="Install Apps" HorizontalAlignment="Left" Margin="25,25,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="Close" Content="Close" HorizontalAlignment="Left" Margin="550,25,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <TextBox Name="hostname" HorizontalAlignment="Left" Margin="25,75,0,0" TextWrapping="Wrap" Text="Tape here" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
-        <Button Name="ApplyHostName" Content="Change HostName" HorizontalAlignment="Left" Margin="175,75,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Button Name="ApplyHostName" Content="Change HostName" HorizontalAlignment="Left" Margin="175,75,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold" Foreground="Red"/>
         <Button Name="downloadRedistAllInOne" Content="Get Redist AllInOne" HorizontalAlignment="Left" Margin="25,125,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="OpenNinite" Content="Open Ninite" HorizontalAlignment="Center" Margin="50,25,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="downloadDirectX" Content="Get DirectX" HorizontalAlignment="Left" Margin="175,125,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="InstallGamesLaunchers" Content="Install Games" HorizontalAlignment="Left" Margin="175,25,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Button Name="enableNFS" Content="Enable NFS" HorizontalAlignment="Left" Margin="325,75,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
 
     </Grid>
 </Window>
@@ -155,23 +156,8 @@ $InstallApps.Add_click({
     Write-Host "Installing WinSCP..."
     winget install -a WinSCP.WinSCP | Out-Host
     if($?) { Write-Host "Installed WinSCP"}
-    [void] [System.Windows.MessageBox]::Show( "I can't install all my staff :( but i can open websites :D ", "Script completed", "OK", "Information" )
+    [void] [System.Windows.MessageBox]::Show( "I will not be able to install everything. But I can open the pages for you :D", "Script completed", "OK", "Information" )
     
-})
-
-$ApplyHostName.Add_click({
-
-    $hostnameValue = $hostname.Text
-    #Write-Host "New name is "  $hostnameValue
-    if($hostnameValue -contains "WRITE HERE HOSTNAME"){
-        Write-Host "Wrong hostname!!!" $hostnameValue
-    }else
-    {
-        Rename-Computer -NewName $hostname
-        Write-Host "Change hostname to " $hostname " please reboot your PC"
-        [void] [System.Windows.MessageBox]::Show( "Change hostname to " + $hostname + " please reboot your PC ", "Script completed", "OK", "Information" )
-    }
-
 })
 
 $InstallGamesLaunchers.Add_click({
@@ -199,25 +185,52 @@ $InstallGamesLaunchers.Add_click({
     Write-Host "Installing Wargaming Game Center..."
     winget install -e Wargaming.GameCenter | Out-Host
     if($?) { Write-Host "Installed Wargaming Game Center" }
-    [void] [System.Windows.MessageBox]::Show( "I can't install all my staff :( but i can open websites :D ", "Script completed", "OK", "Information" )
+    [void] [System.Windows.MessageBox]::Show( "I will not be able to install everything. But I can open the pages for you :D", "Script completed", "OK", "Information" )
+})
+
+$ApplyHostName.Add_click({
+
+    $hostnameValue = $hostname.Text
+    #Write-Host "New name is "  $hostnameValue
+    if($hostnameValue -contains "WRITE HERE HOSTNAME"){
+        Write-Host "Wrong hostname!!!" $hostnameValue
+    }else
+    {
+        Rename-Computer -NewName $hostname
+        Write-Host "Change hostname to " $hostname " please reboot your PC"
+        [void] [System.Windows.MessageBox]::Show( "Change hostname to " + $hostname + " please reboot your PC", "Script completed", "OK", "Information" )
+    }
+
 })
 
 $downloadRedistAllInOne.Add_click({
     Write-Host "Open website..."
-    [void] [System.Windows.MessageBox]::Show( "Please download and install if you want ", "Script completed", "OK", "Information" )
+    [void] [System.Windows.MessageBox]::Show( "Please click, download and install", "Script completed", "OK", "Information" )
     Start $MVC
 })
 $downloadDirectX.Add_click({
     Write-Host "Open website..."
-    [void] [System.Windows.MessageBox]::Show( "Please download and install if you want ", "Script completed", "OK", "Information" )
+    [void] [System.Windows.MessageBox]::Show( "Please click, download and install", "Script completed", "OK", "Information" )
     Start $MDX
 })
 
 $OpenNinite.Add_click({
     Write-Host "Open Ninite.com"
+    [void] [System.Windows.MessageBox]::Show( "Please click, choose what you need, download and install", "Script completed", "OK", "Information" )
     Start $Ninite
 })
 
+$enableNFS.Add_Click({
+    Enable-WindowsOptionalFeature -Online -FeatureName "ServicesForNFS-ClientOnly" -All
+    Enable-WindowsOptionalFeature -Online -FeatureName "ClientForNFS-Infrastructure" -All
+    Enable-WindowsOptionalFeature -Online -FeatureName "NFS-Administration" -All
+    nfsadmin client stop
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default" -Name "AnonymousUID" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default" -Name "AnonymousGID" -Type DWord -Value 0
+    nfsadmin client start
+    nfsadmin client localhost config fileaccess=755 SecFlavors=+sys -krb5 -krb5i
+    Write-Host "NFS is enable"
+})
 
 
 #==========
