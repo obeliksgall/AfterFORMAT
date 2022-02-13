@@ -15,13 +15,14 @@
     <Grid Background="#FF7D7D7D">
         <Button Name="InstallApps" Content="Install Apps" HorizontalAlignment="Left" Margin="25,25,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="Close" Content="Close" HorizontalAlignment="Left" Margin="550,25,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
-        <TextBox Name="hostname" HorizontalAlignment="Left" Margin="25,75,0,0" TextWrapping="Wrap" Text="Tape here" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
-        <Button Name="ApplyHostName" Content="Change HostName" HorizontalAlignment="Left" Margin="175,75,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold" Foreground="Red"/>
+        <TextBox Name="hostname" HorizontalAlignment="Left" Margin="175,75,0,0" TextWrapping="Wrap" Text="Tape here" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold" FontStyle="Italic" FontSize="14"/>
+        <Button Name="ApplyHostName" Content="Change HostName" HorizontalAlignment="Left" Margin="325,75,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold" Foreground="Red"/>
         <Button Name="downloadRedistAllInOne" Content="Get Redist AllInOne" HorizontalAlignment="Left" Margin="25,125,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
-        <Button Name="OpenNinite" Content="Open Ninite" HorizontalAlignment="Center" Margin="50,25,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Button Name="OpenNinite" Content="Open Ninite" HorizontalAlignment="Left" Margin="325,25,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="downloadDirectX" Content="Get DirectX" HorizontalAlignment="Left" Margin="175,125,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="InstallGamesLaunchers" Content="Install Games" HorizontalAlignment="Left" Margin="175,25,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
-        <Button Name="enableNFS" Content="Enable NFS" HorizontalAlignment="Left" Margin="325,75,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Button Name="enableNFS" Content="Enable NFS" HorizontalAlignment="Left" Margin="325,125,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Label Name="L1" Content="Change hostname to:" HorizontalAlignment="Left" Height="25" Margin="25,75,0,0" VerticalAlignment="Top" Width="145" FontWeight="Bold"/>
 
     </Grid>
 </Window>
