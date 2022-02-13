@@ -70,11 +70,6 @@ $Close.Add_click({
 })
 
 $InstallApps.Add_click({
-    #Write-Host "Installing Google Chrome"
-    #$ResultText = "`r`n" +"`r`n" + "Installing Chrome... Please Wait" 
-    #winget install -e Google.Chrome | Out-Host
-    #if($?) { Write-Host "Installed Chrome" }
-    #$ResultText = "`r`n" + "Finished Installing Chrome" + "`r`n" + "`r`n" + "Ready for Next Task"
     
     Write-Host "Installing 7zip..."
     winget install -e 7zip.7zip | Out-Host
@@ -157,18 +152,23 @@ $InstallApps.Add_click({
     Write-Host "Installing WinSCP..."
     winget install -a WinSCP.WinSCP | Out-Host
     if($?) { Write-Host "Installed WinSCP"}
+    [void] [System.Windows.MessageBox]::Show( "I can't install all my staff :( but i can open websites :D ", "Script completed", "OK", "Information" )
     
 })
 
 $ApplyHostName.Add_click({
+
     $hostnameValue = $hostname.Text
-    Write-Host "New name is "  $hostnameValue
+    #Write-Host "New name is "  $hostnameValue
     if($hostnameValue -contains "WRITE HERE HOSTNAME"){
         Write-Host "Wrong hostname!!!" $hostnameValue
-    }else{
-        #Rename-Computer -NewName $hostname
+    }else
+    {
+        Rename-Computer -NewName $hostname
         Write-Host "Change hostname to " $hostname " please reboot your PC"
+        [void] [System.Windows.MessageBox]::Show( "Change hostname to " + $hostname + " please reboot your PC ", "Script completed", "OK", "Information" )
     }
+
 })
 
 $InstallGamesLaunchers.Add_click({
@@ -196,63 +196,29 @@ $InstallGamesLaunchers.Add_click({
     Write-Host "Installing Wargaming Game Center..."
     winget install -e Wargaming.GameCenter | Out-Host
     if($?) { Write-Host "Installed Wargaming Game Center" }
+    [void] [System.Windows.MessageBox]::Show( "I can't install all my staff :( but i can open websites :D ", "Script completed", "OK", "Information" )
 })
 
 $downloadRedistAllInOne.Add_click({
     Write-Host "Open website..."
+        [void] [System.Windows.MessageBox]::Show( "Please download and install if you want ", "Script completed", "OK", "Information" )
     Start $MVC
 })
 $downloadDirectX.Add_click({
     Write-Host "Open website..."
+        [void] [System.Windows.MessageBox]::Show( "Please download and install if you want ", "Script completed", "OK", "Information" )
     Start $MDX
 })
 
 $OpenNinite.Add_click({
-    [void] [System.Windows.MessageBox]::Show( "I can't install all my staff :( but i can open websites :D ", "Script completed", "OK", "Information" )
     Write-Host "Open Ninite.com"
     Start $Ninite
 })
 
-#$Sprawdz.add_Checked({
-#    $checkbox1 = "1"
-#})
-#$Sprawdz.add_UnChecked({
-#    $checkbox1 = "0"
-#})
 
-#if ($checkbox1 = "1"){Write-Host "batman"}
-#if ($checkbox1 = "0"){Write-Host "robin"}
 
 #==========
 
-
-#$hostname = hostname
-#Write-Host $hostname
-#[void] [System.Windows.MessageBox]::Show( "All changes have been implemented successfully ", "Script completed", "OK", "Information" )
-#$answer = [System.Windows.MessageBox]::Show( "I czy ty kurwa sam nie potrafisz??", " Removal Confirmation", "YesNoCancel", "Error" )
-
-
-#function checkbox_test{
-#$Sprawdz.Checked = $true
-#$Sprawdz.Add_CheckStateChanged({
-    #$Close.Enabled = $Sprawdz.Checked })
-#}
-
-
-# Source file location
-#$source = 'https://de1-dl.techpowerup.com/files/nJMd5hWXtZeOvPdnu12soA/1644698760/Visual-C-Runtimes-All-in-One-Dec-2021.zip'
-# Destination to save the file
-
-#Download the file
-#New-Item -Path $destination -Name "Download" -ItemType "directory"
-#Start-Sleep 2
-#Invoke-WebRequest -Uri $source -OutFile $env:TEMP\test.txt
-#Move-Item -path $env:TEMP\test.txt -Destination E:\Download\Visual-C-Runtimes-All-in-One-Dec-2021.zip
-#Start-Sleep 5
-#Expand-Archive -LiteralPath 'E:\Download\Visual-C-Runtimes-All-in-One-Dec-2021.zip' -DestinationPath "E:\Download\Visual-C-Runtimes-All-in-One-INSTALL"
-
-
-#.replace(' System.Windows.Controls.TextBox: ','')
 
 
 #==========
