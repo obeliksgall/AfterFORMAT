@@ -36,12 +36,10 @@ if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe){
 else{
     # Installing winget from the Microsoft Store
 	Write-Host "Winget not found, installing it now."
-    $ResultText.text = "`r`n" +"`r`n" + "Installing Winget... Please Wait"
 	Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
 	$nid = (Get-Process AppInstaller).Id
 	Wait-Process -Id $nid
 	Write-Host Winget Installed
-    $ResultText.text = "`r`n" +"`r`n" + "Winget Installed - Ready for Next Task"
 }
 
     Clear-Host
@@ -206,12 +204,12 @@ $InstallGamesLaunchers.Add_click({
 
 $downloadRedistAllInOne.Add_click({
     Write-Host "Open website..."
-        [void] [System.Windows.MessageBox]::Show( "Please download and install if you want ", "Script completed", "OK", "Information" )
+    [void] [System.Windows.MessageBox]::Show( "Please download and install if you want ", "Script completed", "OK", "Information" )
     Start $MVC
 })
 $downloadDirectX.Add_click({
     Write-Host "Open website..."
-        [void] [System.Windows.MessageBox]::Show( "Please download and install if you want ", "Script completed", "OK", "Information" )
+    [void] [System.Windows.MessageBox]::Show( "Please download and install if you want ", "Script completed", "OK", "Information" )
     Start $MDX
 })
 
