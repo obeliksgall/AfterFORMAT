@@ -84,7 +84,7 @@ Windows Assessment and Deployment Kit
 WinSCP 5.19.4
 World of Tanks EU
 
-PORTABLE:
+# PORTABLE:
 AIMP
 AllDup
 CrystalDiskInfo
