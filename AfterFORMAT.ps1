@@ -1,6 +1,7 @@
 ﻿# SOURCE: https://github.com/ChrisTitusTech/win10script
 # SOURCE: https://docs.microsoft.com/en-us/powershell/
 
+
 If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
 	Exit
@@ -55,10 +56,21 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
         <CheckBox Name="app_totalcommander" Content="Total Commander" HorizontalAlignment="Left" Margin="145,375,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_VLC" Content="VLC" HorizontalAlignment="Left" Margin="145,400,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_winspc" Content="WinSCP" HorizontalAlignment="Left" Margin="290,100,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <!-- <CheckBox Name="change_hostname" Content="Change hostname?" HorizontalAlignment="Left" Margin="502,100,0,0" VerticalAlignment="Top" Width="150" Height="15" FontSize="13" FontWeight="Normal"/> -->
-        
+        <CheckBox Name="change_uac" Content="Change UAC" HorizontalAlignment="Left" Margin="502,100,0,0" VerticalAlignment="Top" Width="150" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="change_autologon" Content="Enable auto log on" HorizontalAlignment="Left" Margin="502,192,0,0" VerticalAlignment="Top" Width="150" Height="16" FontSize="13" FontWeight="Normal"/>
+
         <Separator Height="10" Margin="10,425,10,0" VerticalAlignment="Top" Background="White"/>
         <Separator Height="10" Margin="10,80,10,0" VerticalAlignment="Top" Background="White"/>
+        <Separator HorizontalAlignment="Left" Height="325" Margin="273,95,0,0" VerticalAlignment="Top" Width="334" RenderTransformOrigin="0.5,0.5" Background="White">
+            <Separator.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="90"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Separator.RenderTransform>
+        </Separator>
         
         <TextBox Name="set_hostname" HorizontalAlignment="Left" Height="25" Margin="477,125,0,0" TextWrapping="Wrap" Text="hostname" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Bold" TextAlignment="Center"/>
 
@@ -66,16 +78,16 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 </Window>
 "@
 
-#IsReadOnly="True" to read only textbox
-#$set_hostname.ReadOnly = $false;
 
 #Read XAML
 $reader=(New-Object System.Xml.XmlNodeReader $xaml) 
 try{$Form=[Windows.Markup.XamlReader]::Load( $reader )}
 catch{Write-Host "Unable to load Windows.Markup.XamlReader"; exit}
 
+
 # Store Form Objects In PowerShell
 $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -Value $Form.FindName($_.Name)}
+
 
 
 #LINKS
@@ -85,18 +97,58 @@ $urlNinite = "https://ninite.com/"
 $urlChocolatey = "https://community.chocolatey.org/install.ps1"
 
 
+
 #SCRIPT PATH
 $destination = $MyInvocation.MyCommand.Path
 $scriptname = $MyInvocation.MyCommand.Name
 $destination = $destination.Replace($scriptname,'')
 
+
+
 #$ApplyHostName.Add_click({
 #DO...
 #})
 
+#LOGS
+function TS {Get-Date -Format 'yyyy-MM-dd HH:mm:ss'}
+Get-ChildItem -Path $destination -Filter AfterFORMAT.log | Where-Object {$_.Length -gt 1mb} | ForEach-Object {Rename-Item $_.FullName {$_.FullName -replace "AfterFORMAT",("AfterFORMAT_$TS")}}
+"[$(TS)] AfterFORMAT start " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+
 $global:hostnameV = $env:COMPUTERNAME
 $set_hostname.text = $global:hostnameV
+
 $global:install_7zip = 0
+$global:install_adguard = 0
+$global:install_audacity = 0
+$global:install_discord = 0
+$global:install_displaycal = 0
+$global:install_googlechrome = 0
+$global:install_hashtab = 0
+$global:install_keepass = 0
+$global:install_klitecodecpack = 0
+$global:install_logitechghub = 0
+$global:install_mediainfo = 0
+$global:install_msiafterburner = 0
+$global:install_notepadPP = 0
+$global:install_obsstudio = 0
+$global:install_putty = 0
+$global:install_red = 0
+$global:install_rivatuner = 0
+$global:install_samsungdex = 0
+$global:install_samsungflow = 0
+$global:install_soundswitch = 0
+$global:install_spotify = 0
+$global:install_synctrayzor = 0
+$global:install_teamspeak3 = 0
+$global:install_teamviewer = 0
+$global:install_totalcommander = 0
+$global:install_VLC = 0
+$global:install_winspc = 0
+
+$global:UAC = 0
+$global:ALO = 0
+
+"[$(TS)] AfterFORMAT set global variables " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
 $apply.Add_click({
     Write-Host "Tutaj instaluję programy zaznaczone checkboxem :D"
@@ -118,7 +170,9 @@ $apply.Add_click({
     }
     #Write-Host $install_7zip
 
+    #Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0 / 5
 
+    #Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device" -Name "DevicePasswordLessBuildVersion" -Value 0
 
 
 
@@ -230,22 +284,17 @@ $apply.Add_click({
 #Write-Host "Installing Wargaming Game Center..."
 #winget install -e Wargaming.GameCenter | Out-Host
 #if($?) { Write-Host "Installed Wargaming Game Center" }
-
-
-
-
-
-
-
 })
 
 #CLOSE APP
 $close_window.Add_click({
+    "[$(TS)] AfterFORMAT close " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     Clear-Host
     $Form.Close()
 })
 
 $enable_nfs.Add_Click({
+    "[$(TS)] AfterFORMAT Start enable NFS " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     Enable-WindowsOptionalFeature -Online -FeatureName "ServicesForNFS-ClientOnly" -All
     Enable-WindowsOptionalFeature -Online -FeatureName "ClientForNFS-Infrastructure" -All
     Enable-WindowsOptionalFeature -Online -FeatureName "NFS-Administration" -All
@@ -255,6 +304,7 @@ $enable_nfs.Add_Click({
     nfsadmin client start
     nfsadmin client localhost config fileaccess=755 SecFlavors=+sys -krb5 -krb5i
     Write-Host "NFS is enable"
+    "[$(TS)] AfterFORMAT Finish enable NFS " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 $get_directx.Add_click({
@@ -314,37 +364,31 @@ $apply_hostname.Add_click({
     }
 })
 
-#$change_hostname.Add_Checked({
-    #Write-Host Batman
-    #$set_hostname.Enabled = $true
-    #$set_hostname.ReadOnly = $true;
-    #$set_hostname.Attribute.Add("ReadOnly")
-    #If ($change_hostname.Checked) {
-    #    $set_hostname.text = 'CHECKED'
-    #} Else {
-    #    $set_hostname.text = 'UNCHECKED'
-    #}
-#})
-#$change_hostname.Add_Unchecked({
-    Write-Host Robin
-    #$set_hostname.Enabled = $false
-    #$set_hostname.ReadOnly = $false;
-    #$set_hostname.Attribute.Add("ReadOnly")
-    #If ($change_hostname.Unchecked) {
-    #    $set_hostname.text = 'UNCHECKED'
+$change_uac.Add_Checked({
+    $global:UAC = 1
+    Write-Host $global:UAC
+})
+$change_uac.Add_Unchecked({
+    $global:UAC = 0
+    Write-Host $global:UAC
+})
 
-    #} Else {
-    #    $set_hostname.text = 'CHECKED'
-    #}
-#})
+$change_autologon.Add_Checked({
+    $global:ALO = 1
+    Write-Host $global:ALO
+})
+$change_autologon.Add_Unchecked({
+    $global:ALO = 0
+    Write-Host $global:ALO
+})
 
 $app_7zip.Add_Checked({
     $global:install_7zip = 1
-    Write-Host $install_7zip
+    Write-Host $global:install_7zip
 })
 $app_7zip.Add_Unchecked({
     $global:install_7zip = 0
-    Write-Host $install_7zip
+    Write-Host $global:install_7zip
 })
 
 
