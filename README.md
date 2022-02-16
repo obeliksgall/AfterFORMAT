@@ -6,8 +6,11 @@ If there is something missing, you will be redirected to the page to download th
 
 
 Paste this command into Powershell (admin):
+
 iex ((New-Object System.Net.WebClient).DownloadString('https://bit.ly/3oWfw26'))
+
 Or
+
 iwr -useb https://bit.ly/3oWfw26 | iex
 
 
