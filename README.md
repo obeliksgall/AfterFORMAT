@@ -13,6 +13,7 @@ Or
 
 iwr -useb https://bit.ly/3oWfw26 | iex
 
+![image](https://user-images.githubusercontent.com/23260174/154377126-ec8aae4f-af75-4f59-9735-3b0eda7bc158.png)
 
 
 # My Apps
