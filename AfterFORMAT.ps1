@@ -50,7 +50,7 @@
         <CheckBox Name="app_teamviewer" Content="TeamViewer" HorizontalAlignment="Left" Margin="145,325,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_totalcommander" Content="Total Commander" HorizontalAlignment="Left" Margin="145,350,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_VLC" Content="VLC" HorizontalAlignment="Left" Margin="145,375,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_winspc" Content="WinSCP" HorizontalAlignment="Left" Margin="145,400,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_winscp" Content="WinSCP" HorizontalAlignment="Left" Margin="145,400,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="change_autologon" Content="Enable auto log on" HorizontalAlignment="Left" Margin="502,125,0,0" VerticalAlignment="Top" Width="150" Height="16" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="change_uac" Content="Change UAC" HorizontalAlignment="Left" Margin="502,100,0,0" VerticalAlignment="Top" Width="150" Height="15" FontSize="13" FontWeight="Normal"/>
         
@@ -148,7 +148,7 @@ $global:install_teamspeak3      = 0
 $global:install_teamviewer      = 0
 $global:install_totalcommander  = 0
 $global:install_VLC             = 0
-$global:install_winspc          = 0
+$global:install_winscp          = 0
 
 $global:UAC = 0
 $global:ALO = 0
@@ -179,19 +179,17 @@ $apply.Add_click({
     $installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
     if(test-path "C:\ProgramData\chocolatey\choco.exe"){
-        Write-Host "Chocolatey already installed, continue "
+        Write-Host "`nChocolatey already installed, continue "
         "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
         
         # MSI Afterburner
-        if ($global:install_7zip -eq 1){
+        if ($global:install_msiafterburner -eq 1){
             $software = "MSI Afterburner"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing MSI Afterburner..."
-                #choco install msiafterburner | Out-Host
+                choco install msiafterburner | Out-Host
                 if($?) { Write-Host "Installed MSI Afterburner"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -204,11 +202,11 @@ $apply.Add_click({
         }
 
     }else{
-        Write-Host "Chocolatey not found, installing it "
+        Write-Host "`nChocolatey not found, installing it "
         "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }
     if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe){
-        Write-Host "Winget already installed, continue `n"
+        Write-Host "`nWinget already installed, continue "
         "[$(TS)] AfterFORMAT [INFO] Winget already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
         # 7-Zip
@@ -216,10 +214,8 @@ $apply.Add_click({
             $software = "7-Zip"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing 7zip..."
-                #winget install -e 7zip.7zip | Out-Host
+                winget install -e 7zip.7zip | Out-Host
                 if($?) { Write-Host "Installed 7zip"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -236,10 +232,8 @@ $apply.Add_click({
             $software = "Adguard"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Adguard..."
-                #winget install -e AdGuard.AdGuard | Out-Host
+                winget install -e AdGuard.AdGuard | Out-Host
                 if($?) { Write-Host "Installed Adguard"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -256,10 +250,8 @@ $apply.Add_click({
             $software = "Audacity"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Audacity..."
-                #winget install -e Audacity.Audacity | Out-Host
+                winget install -e Audacity.Audacity | Out-Host
                 if($?) { Write-Host "Installed Audacity"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -276,10 +268,8 @@ $apply.Add_click({
             $software = "Discord"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Discord..."
-                #winget install -e Discord.Discord | Out-Host
+                winget install -e Discord.Discord | Out-Host
                 if($?) { Write-Host "Installed Discord"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -296,9 +286,7 @@ $apply.Add_click({
             $software = "DisplayCAL"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing DisplayCAL..."
                 #winget install -e FlorianHoech.DisplayCAL | Out-Host
                 if($?) { Write-Host "Installed DisplayCAL"}
             } else {
@@ -316,9 +304,7 @@ $apply.Add_click({
             $software = "Google Chrome"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Google Chrome..."
                 #winget install -e Google.Chrome | Out-Host
                 if($?) { Write-Host "Installed Google Chrome"}
             } else {
@@ -336,10 +322,8 @@ $apply.Add_click({
             $software = "HashTab"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing HashTab..."
-                #winget install -e Implbits.HashTab | Out-Host
+                winget install -e Implbits.HashTab | Out-Host
                 if($?) { Write-Host "Installed HashTab"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -352,14 +336,12 @@ $apply.Add_click({
         }
 
         # KeePass
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_keepass -eq 1){
             $software = "KeePass"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing KeePass..."
-                #winget install -e DominikReichl.KeePass | Out-Host
+                winget install -e DominikReichl.KeePass | Out-Host
                 if($?) { Write-Host "Installed KeePass"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -372,14 +354,12 @@ $apply.Add_click({
         }
 
         # K-Lite Codec Pack
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_klitecodecpack -eq 1){
             $software = "K-Lite"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing K-Lite Codec Pack..."
-                #winget install -e CodecGuide.K-LiteCodecPack.Full | Out-Host
+                winget install -e CodecGuide.K-LiteCodecPack.Full | Out-Host
                 if($?) { Write-Host "Installed K-Lite Codec Pack"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -392,14 +372,12 @@ $apply.Add_click({
         }
 
         # Logitech G HUB
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_logitechghub -eq 1){
             $software = "Logitech G HUB"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Logitech G HUB..."
-                #winget install -e Logitech.GHUB | Out-Host
+                winget install -e Logitech.GHUB | Out-Host
                 if($?) { Write-Host "Installed Logitech G HUB"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -412,14 +390,12 @@ $apply.Add_click({
         }
 
         # MediaInfo
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_mediainfo -eq 1){
             $software = "MediaInfo"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing MediaInfo..."
-                #winget install -e MediaArea.MediaInfo.GUI | Out-Host
+                winget install -e MediaArea.MediaInfo.GUI | Out-Host
                 if($?) { Write-Host "Installed MediaInfo"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -432,14 +408,12 @@ $apply.Add_click({
         }
 
         # Notepad++
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_notepadPP -eq 1){
             $software = "Notepad"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Notepad++..."
-                #winget install -e Notepad++.Notepad++ | Out-Host
+                winget install -e Notepad++.Notepad++ | Out-Host
                 if($?) { Write-Host "Installed Notepad++"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -452,14 +426,12 @@ $apply.Add_click({
         }
 
         # OBS
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_obsstudio -eq 1){
             $software = "OBS "
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing OBS Studio..."
-                #winget install -e OBSProject.OBSStudio | Out-Host
+                winget install -e OBSProject.OBSStudio | Out-Host
                 if($?) { Write-Host "Installed OBS Studio"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -472,14 +444,12 @@ $apply.Add_click({
         }
 
         # Putty
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_putty -eq 1){
             $software = "Putty"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Putty..."
-                #winget install -e PuTTY.PuTTY | Out-Host
+                winget install -e PuTTY.PuTTY | Out-Host
                 if($?) { Write-Host "Installed Putty"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -492,14 +462,12 @@ $apply.Add_click({
         }
 
         # Remove Empty Directories
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_red -eq 1){
             $software = "Remove Empty Directories"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Remove Empty Directories..."
-                #winget install -e JonasJohn.RemoveEmptyDirectories | Out-Host
+                winget install -e JonasJohn.RemoveEmptyDirectories | Out-Host
                 if($?) { Write-Host "Installed Remove Empty Directories"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -512,34 +480,12 @@ $apply.Add_click({
         }
 
         # Samsung DEX
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_samsungdex -eq 1){
             $software = "DEX"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Samsung DeX..."
-                #winget install -e Samsung.DeX | Out-Host
-                if($?) { Write-Host "Installed Samsung DeX"}
-            } else {
-	            Write-Host "'$software' is installed "
-                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-            }
-        }else{
-            $software = "DEX"
-            Write-Host "Do not install '$software'"
-            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-        }
-
-        # Samsung DEX
-        if ($global:install_hashtab -eq 1){
-            $software = "DEX"
-
-            if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
-                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Samsung DeX..."
-                #winget install -e Samsung.DeX | Out-Host
+                winget install -e Samsung.DeX | Out-Host
                 if($?) { Write-Host "Installed Samsung DeX"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -552,14 +498,12 @@ $apply.Add_click({
         }
 
         # SoundSwitch
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_soundswitch -eq 1){
             $software = "SoundSwitch"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing SoundSwitch..."
-                #winget install -e AntoineAflalo.SoundSwitch | Out-Host
+                winget install -e AntoineAflalo.SoundSwitch | Out-Host
                 if($?) { Write-Host "Installed SoundSwitch"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -572,14 +516,12 @@ $apply.Add_click({
         }
 
         # Spotify
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_spotify -eq 1){
             $software = "Spotify"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Spotify..."
-                #winget install -e Spotify.Spotify | Out-Host
+                winget install -e Spotify.Spotify | Out-Host
                 if($?) { Write-Host "Installed Spotify"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -592,14 +534,12 @@ $apply.Add_click({
         }
 
         # SyncTrayzor
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_synctrayzor -eq 1){
             $software = "SyncTrayzor"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing SyncTrayzor..."
-                #winget install -e SyncTrayzor.SyncTrayzor | Out-Host
+                winget install -e SyncTrayzor.SyncTrayzor | Out-Host
                 if($?) { Write-Host "Installed SyncTrayzor"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -612,14 +552,12 @@ $apply.Add_click({
         }
 
         # TeamSpeak 3
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_teamspeak3 -eq 1){
             $software = "TeamSpeak"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing TeamSpeak..."
-                #winget install -e SyncTrayzor.SyncTrayzor | Out-Host
+                winget install -e TeamSpeakSystems.TeamSpeakClient | Out-Host
                 if($?) { Write-Host "Installed TeamSpeak"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -632,14 +570,12 @@ $apply.Add_click({
         }
 
         # TeamViewer
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_teamviewer -eq 1){
             $software = "TeamViewer"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing TeamViewer..."
-                #winget install -e TeamViewer.TeamViewer | Out-Host
+                winget install -e TeamViewer.TeamViewer | Out-Host
                 if($?) { Write-Host "Installed TeamViewer"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -652,14 +588,12 @@ $apply.Add_click({
         }
 
         # Total Commander
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_totalcommander -eq 1){
             $software = "Total Commander"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing Total Commander..."
-                #winget install -e Ghisler.TotalCommander | Out-Host
+                winget install -e Ghisler.TotalCommander | Out-Host
                 if($?) { Write-Host "Installed Total Commander"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -672,14 +606,12 @@ $apply.Add_click({
         }
 
         # VLC
-        if ($global:install_hashtab -eq 1){
+        if ($global:install_VLC -eq 1){
             $software = "VLC"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing VLC..."
-                #winget install -e VideoLAN.VLC | Out-Host
+                winget install -e VideoLAN.VLC | Out-Host
                 if($?) { Write-Host "Installed VLC"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -691,15 +623,13 @@ $apply.Add_click({
             "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
         }
 
-        # VLC
-        if ($global:install_hashtab -eq 1){
+        # WinSCP
+        if ($global:install_winscp -eq 1){
             $software = "WinSCP"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing WinSCP..."
-                #winget install -e WinSCP.WinSCP | Out-Host
+                winget install -e WinSCP.WinSCP | Out-Host
                 if($?) { Write-Host "Installed WinSCP"}
             } else {
 	            Write-Host "'$software' is installed "
@@ -712,7 +642,7 @@ $apply.Add_click({
         }
 
     }else{
-        Write-Host "Winget not found, installing it "
+        Write-Host "`nWinget not found, installing it "
         "[$(TS)] AfterFORMAT [INFO] Winget not found, installing it " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }
 
@@ -721,18 +651,17 @@ $apply.Add_click({
             $software = "Samsung Flow"
 
             if($installed -contains $software) {
-	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-                Write-Host "Installing WinSCP..."
-                #winget install -e WinSCP.WinSCP | Out-Host
-                #https://www.microsoft.com/en-us/p/samsung-flow/9nblggh5gb0m
-                if($?) { Write-Host "Installed WinSCP"}
+                Write-Host "Open website with Samsung Flow"
+                [void] [System.Windows.MessageBox]::Show( "Please click, download and install", "Script completed", "OK", "Information" )
+                "[$(TS)] AfterFORMAT [INFO] Open website with Samsung Flow " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Start https://www.microsoft.com/en-us/p/samsung-flow/9nblggh5gb0m
             } else {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
             }
         }else{
-            $software = "WinSCP"
+            $software = "Samsung Flow"
             Write-Host "Do not install '$software'"
             "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
         }
@@ -740,7 +669,7 @@ $apply.Add_click({
 
 
     if ($global:UAC -eq 1){
-        #Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 5 #OR 0
+        Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 5 #OR 0
         Write-Host "Change UAC settings to 5"
         "[$(TS)] AfterFORMAT [INFO] Change UAC settings to 5 " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }
@@ -748,7 +677,7 @@ $apply.Add_click({
 
 
     if ($global:ALO -eq 1){
-        #Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device" -Name "DevicePasswordLessBuildVersion" -Value 0
+        Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device" -Name "DevicePasswordLessBuildVersion" -Value 0
         Write-Host "Auto log in enable. Go to netplwiz"
         "[$(TS)] AfterFORMAT [INFO] Auto log in enable. Go to netplwiz " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }
@@ -1207,13 +1136,13 @@ $app_VLC.Add_Unchecked({
 })
 
 
-$app_winspc.Add_Checked({
-    $global:install_winspc = 1
+$app_winscp.Add_Checked({
+    $global:install_winscp = 1
     Write-Host "WinSPC                      " $global:install_winspc
     "[$(TS)] AfterFORMAT checked WinSPC " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
-$app_winspc.Add_Unchecked({
-    $global:install_winspc = 0
+$app_winscp.Add_Unchecked({
+    $global:install_winscp = 0
     Write-Host "WinSPC                      " $global:install_winspc
     "[$(TS)] AfterFORMAT unchecked WinSPC " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
