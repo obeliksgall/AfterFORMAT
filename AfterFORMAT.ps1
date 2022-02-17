@@ -1138,12 +1138,12 @@ $app_VLC.Add_Unchecked({
 
 $app_winscp.Add_Checked({
     $global:install_winscp = 1
-    Write-Host "WinSPC                      " $global:install_winspc
+    Write-Host "WinSCP                      " $global:install_winscp
     "[$(TS)] AfterFORMAT [INFO] checked WinSPC " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_winscp.Add_Unchecked({
     $global:install_winscp = 0
-    Write-Host "WinSPC                      " $global:install_winspc
+    Write-Host "WinSCP                      " $global:install_winscp
     "[$(TS)] AfterFORMAT [INFO] unchecked WinSPC " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
