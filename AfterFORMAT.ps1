@@ -68,7 +68,7 @@
             </Separator.RenderTransform>
         </Separator>
         
-        <TextBox Name="set_hostname" HorizontalAlignment="Left" Height="26" Margin="477,150,0,0" TextWrapping="Wrap" Text="hostname" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Bold" TextAlignment="Center"/>
+        <TextBox Name="set_hostname" HorizontalAlignment="Left" Height="26" Margin="477,150,0,0" TextWrapping="Wrap" Text="hostname" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Bold" TextAlignment="Center" MaxLength="20"/>
 
         <!-- <Label Name="label_OS" Content="" HorizontalAlignment="Left" Margin="477,218,0,0" VerticalAlignment="Top" Width="200"/> -->
         <!-- <Label Name="label_HN" Content="" HorizontalAlignment="Left" Margin="477,246,0,0" VerticalAlignment="Top" Width="200"/> -->
