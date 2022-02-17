@@ -107,6 +107,7 @@ if ($destination -eq ''){
     $destination = 'C:\'
 }
 
+$global:destination = $destination
 
 #LOGS
 function TS {Get-Date -Format 'yyyy-MM-dd HH:mm:ss'}
@@ -729,7 +730,7 @@ $install_chocolatey.Add_click({
     Write-Host "Checking Chocolatey..."
     "[$(TS)] AfterFORMAT Checking Chocolatey " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     
-    $installchoco = $destination + 'AfterFORMATinstallchoco.ps1'
+    $installchoco = $global:destination + 'AfterFORMATinstallchoco.ps1'
 
     if(test-path "C:\ProgramData\chocolatey\choco.exe"){
         Write-Host "Chocolatey already installed"
