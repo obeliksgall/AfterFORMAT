@@ -49,8 +49,6 @@ app_putty
 
 app_red
 
-app_rivatuner
-
 app_samsungdex
 
 app_samsungflow
@@ -69,4 +67,4 @@ app_totalcommander
 
 app_VLC
 
-app_winspc
+app_winscp
