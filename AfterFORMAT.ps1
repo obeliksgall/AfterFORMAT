@@ -734,8 +734,8 @@ $app_winspc.Add_Unchecked({
 
 #   !!!Please do not insert code below!!!
 
-# SOURCE: https://github.com/ChrisTitusTech/win10script
-# SOURCE: https://docs.microsoft.com/en-us/powershell/
+#SOURCE:https://github.com/ChrisTitusTech/win10script
+#SOURCE:https://docs.microsoft.com/en-us/powershell/
 
 #Show Form
 $Form.ShowDialog() | out-null
