@@ -12,10 +12,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
 
-        Title="AfterFORMAT" Height="525" Width="750" MinWidth="750" MinHeight="525" MaxWidth="750" MaxHeight="525">
+        Title="AfterFORMAT" Height="525" Width="750" MinWidth="750" MinHeight="500" MaxWidth="750" MaxHeight="525">
     <Grid Background="#FF7D7D7D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
-
+        
         <Button Name="apply" Content="Apply" HorizontalAlignment="Center" Margin="0,445,0,0" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold"/>
+        <Button Name="apply_hostname" Content="Apply hostname" HorizontalAlignment="Left" Margin="514,183,0,0" VerticalAlignment="Top" Height="24" Width="126" FontWeight="Bold"/>
         <Button Name="close_window" Content="Close" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="enable_nfs" Content="Enable NFS" HorizontalAlignment="Left" Margin="280,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="get_directx" Content="Get DirectX" HorizontalAlignment="Left" Margin="145,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
@@ -23,7 +24,6 @@
         <Button Name="install_chocolatey" Content="Install CHOCOLATEY" HorizontalAlignment="Left" Margin="145,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="install_winget" Content="Install WINGET" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="open_ninite" Content="Open ninite.com" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Height="25" Width="124" FontWeight="Bold"/>
-        <Button Name="apply_hostname" Content="Apply hostname" HorizontalAlignment="Left" Margin="514,183,0,0" VerticalAlignment="Top" Height="24" Width="126" FontWeight="Bold"/>
         
         <CheckBox Name="app_7zip" Content="7-zip" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_adguard" Content="Adguard" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
@@ -41,19 +41,20 @@
         <CheckBox Name="app_obsstudio" Content="OBS Studio" HorizontalAlignment="Left" Margin="145,100,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_putty" Content="Putty" HorizontalAlignment="Left" Margin="145,125,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_red" Content="RED" HorizontalAlignment="Left" Margin="145,150,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_rivatuner" Content="RivaTuner" HorizontalAlignment="Left" Margin="145,175,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_samsungdex" Content="Samsung DeX" HorizontalAlignment="Left" Margin="145,200,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_samsungflow" Content="Samsung FLOW" HorizontalAlignment="Left" Margin="145,225,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_soundswitch" Content="SoundSwitch" HorizontalAlignment="Left" Margin="145,250,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_spotify" Content="Spotify" HorizontalAlignment="Left" Margin="145,275,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_synctrayzor" Content="SyncTrayzor" HorizontalAlignment="Left" Margin="145,300,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_teamspeak3" Content="TeamSpeak 3" HorizontalAlignment="Left" Margin="145,325,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_teamviewer" Content="TeamViewer" HorizontalAlignment="Left" Margin="145,350,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_totalcommander" Content="Total Commander" HorizontalAlignment="Left" Margin="145,375,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_VLC" Content="VLC" HorizontalAlignment="Left" Margin="145,400,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="app_winspc" Content="WinSCP" HorizontalAlignment="Left" Margin="290,100,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
-        <CheckBox Name="change_uac" Content="Change UAC" HorizontalAlignment="Left" Margin="502,100,0,0" VerticalAlignment="Top" Width="150" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_samsungdex" Content="Samsung DeX" HorizontalAlignment="Left" Margin="145,175,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_samsungflow" Content="Samsung FLOW" HorizontalAlignment="Left" Margin="145,200,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_soundswitch" Content="SoundSwitch" HorizontalAlignment="Left" Margin="145,225,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_spotify" Content="Spotify" HorizontalAlignment="Left" Margin="145,250,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_synctrayzor" Content="SyncTrayzor" HorizontalAlignment="Left" Margin="145,275,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_teamspeak3" Content="TeamSpeak 3" HorizontalAlignment="Left" Margin="145,300,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_teamviewer" Content="TeamViewer" HorizontalAlignment="Left" Margin="145,325,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_totalcommander" Content="Total Commander" HorizontalAlignment="Left" Margin="145,350,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_VLC" Content="VLC" HorizontalAlignment="Left" Margin="145,375,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_winspc" Content="WinSCP" HorizontalAlignment="Left" Margin="145,400,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="change_autologon" Content="Enable auto log on" HorizontalAlignment="Left" Margin="502,125,0,0" VerticalAlignment="Top" Width="150" Height="16" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="change_uac" Content="Change UAC" HorizontalAlignment="Left" Margin="502,100,0,0" VerticalAlignment="Top" Width="150" Height="15" FontSize="13" FontWeight="Normal"/>
+        
+        <TextBox Name="set_hostname" HorizontalAlignment="Left" Height="26" Margin="477,150,0,0" TextWrapping="Wrap" Text="Type Here hostname" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Bold" TextAlignment="Center" MaxLength="20"/>
 
         <Separator Height="10" Margin="10,425,10,0" VerticalAlignment="Top" Background="White"/>
         <Separator Height="10" Margin="10,80,10,0" VerticalAlignment="Top" Background="White"/>
@@ -67,14 +68,6 @@
                 </TransformGroup>
             </Separator.RenderTransform>
         </Separator>
-        
-        <TextBox Name="set_hostname" HorizontalAlignment="Left" Height="26" Margin="477,150,0,0" TextWrapping="Wrap" Text="hostname" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Bold" TextAlignment="Center" MaxLength="20"/>
-
-        <!-- <Label Name="label_OS" Content="" HorizontalAlignment="Left" Margin="477,218,0,0" VerticalAlignment="Top" Width="200"/> -->
-        <!-- <Label Name="label_HN" Content="" HorizontalAlignment="Left" Margin="477,246,0,0" VerticalAlignment="Top" Width="200"/> -->
-        <!-- <Label Name="label_DiskC" Content="" HorizontalAlignment="Left" Margin="477,301,0,0" VerticalAlignment="Top" Width="200"/> -->
-        <!-- <Label Name="label_RAM" Content="" HorizontalAlignment="Left" Margin="477,328,0,0" VerticalAlignment="Top" Width="200"/> -->
-        <!-- <Label Name="label_User" Content="" HorizontalAlignment="Left" Margin="477,273,0,0" VerticalAlignment="Top" Width="200"/> -->
 
     </Grid>
 </Window>
@@ -146,7 +139,6 @@ $global:install_notepadPP       = 0
 $global:install_obsstudio       = 0
 $global:install_putty           = 0
 $global:install_red             = 0
-$global:install_rivatuner       = 0
 $global:install_samsungdex      = 0
 $global:install_samsungflow     = 0
 $global:install_soundswitch     = 0
@@ -190,7 +182,26 @@ $apply.Add_click({
         Write-Host "Chocolatey already installed, continue "
         "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
+        
+        # MSI Afterburner
+        if ($global:install_7zip -eq 1){
+            $software = "MSI Afterburner"
 
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing MSI Afterburner..."
+                #choco install msiafterburner | Out-Host
+                if($?) { Write-Host "Installed MSI Afterburner"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "MSI Afterburner"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
 
     }else{
         Write-Host "Chocolatey not found, installing it "
@@ -209,13 +220,93 @@ $apply.Add_click({
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
                 Write-Host "Installing 7zip..."
                 #winget install -e 7zip.7zip | Out-Host
-                #if($?) { Write-Host "Installed 7zip"}
+                if($?) { Write-Host "Installed 7zip"}
             } else {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
             }
         }else{
             $software = "7-Zip"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Adguard
+        if ($global:install_adguard -eq 1){
+            $software = "Adguard"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Adguard..."
+                #winget install -e AdGuard.AdGuard | Out-Host
+                if($?) { Write-Host "Installed Adguard"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "Adguard"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Audacity
+        if ($global:install_audacity -eq 1){
+            $software = "Audacity"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Audacity..."
+                #winget install -e Audacity.Audacity | Out-Host
+                if($?) { Write-Host "Installed Audacity"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "Audacity"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Discord
+        if ($global:install_discord -eq 1){
+            $software = "Discord"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Discord..."
+                #winget install -e Discord.Discord | Out-Host
+                if($?) { Write-Host "Installed Discord"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "Discord"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # DisplayCAL
+        if ($global:install_displaycal -eq 1){
+            $software = "DisplayCAL"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing DisplayCAL..."
+                #winget install -e FlorianHoech.DisplayCAL | Out-Host
+                if($?) { Write-Host "Installed DisplayCAL"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "DisplayCAL"
             Write-Host "Do not install '$software'"
             "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
         }
@@ -228,8 +319,8 @@ $apply.Add_click({
 	            Write-Host "'$software' NOT is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
                 Write-Host "Installing Google Chrome..."
-                #winget install -e 7zip.7zip | Out-Host
-                #if($?) { Write-Host "Installed 7zip"}
+                #winget install -e Google.Chrome | Out-Host
+                if($?) { Write-Host "Installed Google Chrome"}
             } else {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
@@ -240,10 +331,411 @@ $apply.Add_click({
             "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
         }
 
+        # HashTab
+        if ($global:install_hashtab -eq 1){
+            $software = "HashTab"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing HashTab..."
+                #winget install -e Implbits.HashTab | Out-Host
+                if($?) { Write-Host "Installed HashTab"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "HashTab"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # KeePass
+        if ($global:install_hashtab -eq 1){
+            $software = "KeePass"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing KeePass..."
+                #winget install -e DominikReichl.KeePass | Out-Host
+                if($?) { Write-Host "Installed KeePass"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "KeePass"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # K-Lite Codec Pack
+        if ($global:install_hashtab -eq 1){
+            $software = "K-Lite"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing K-Lite Codec Pack..."
+                #winget install -e CodecGuide.K-LiteCodecPack.Full | Out-Host
+                if($?) { Write-Host "Installed K-Lite Codec Pack"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "K-Lite Codec Pack"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Logitech G HUB
+        if ($global:install_hashtab -eq 1){
+            $software = "Logitech G HUB"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Logitech G HUB..."
+                #winget install -e Logitech.GHUB | Out-Host
+                if($?) { Write-Host "Installed Logitech G HUB"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "Logitech G HUB"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # MediaInfo
+        if ($global:install_hashtab -eq 1){
+            $software = "MediaInfo"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing MediaInfo..."
+                #winget install -e MediaArea.MediaInfo.GUI | Out-Host
+                if($?) { Write-Host "Installed MediaInfo"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "MediaInfo"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Notepad++
+        if ($global:install_hashtab -eq 1){
+            $software = "Notepad"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Notepad++..."
+                #winget install -e Notepad++.Notepad++ | Out-Host
+                if($?) { Write-Host "Installed Notepad++"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "Notepad"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # OBS
+        if ($global:install_hashtab -eq 1){
+            $software = "OBS "
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing OBS Studio..."
+                #winget install -e OBSProject.OBSStudio | Out-Host
+                if($?) { Write-Host "Installed OBS Studio"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "OBS "
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Putty
+        if ($global:install_hashtab -eq 1){
+            $software = "Putty"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Putty..."
+                #winget install -e PuTTY.PuTTY | Out-Host
+                if($?) { Write-Host "Installed Putty"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "Putty"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Remove Empty Directories
+        if ($global:install_hashtab -eq 1){
+            $software = "Remove Empty Directories"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Remove Empty Directories..."
+                #winget install -e JonasJohn.RemoveEmptyDirectories | Out-Host
+                if($?) { Write-Host "Installed Remove Empty Directories"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "Remove Empty Directories"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Samsung DEX
+        if ($global:install_hashtab -eq 1){
+            $software = "DEX"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Samsung DeX..."
+                #winget install -e Samsung.DeX | Out-Host
+                if($?) { Write-Host "Installed Samsung DeX"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "DEX"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Samsung DEX
+        if ($global:install_hashtab -eq 1){
+            $software = "DEX"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Samsung DeX..."
+                #winget install -e Samsung.DeX | Out-Host
+                if($?) { Write-Host "Installed Samsung DeX"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "DEX"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # SoundSwitch
+        if ($global:install_hashtab -eq 1){
+            $software = "SoundSwitch"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing SoundSwitch..."
+                #winget install -e AntoineAflalo.SoundSwitch | Out-Host
+                if($?) { Write-Host "Installed SoundSwitch"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "SoundSwitch"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Spotify
+        if ($global:install_hashtab -eq 1){
+            $software = "Spotify"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Spotify..."
+                #winget install -e Spotify.Spotify | Out-Host
+                if($?) { Write-Host "Installed Spotify"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "Spotify"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # SyncTrayzor
+        if ($global:install_hashtab -eq 1){
+            $software = "SyncTrayzor"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing SyncTrayzor..."
+                #winget install -e SyncTrayzor.SyncTrayzor | Out-Host
+                if($?) { Write-Host "Installed SyncTrayzor"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "SyncTrayzor"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # TeamSpeak 3
+        if ($global:install_hashtab -eq 1){
+            $software = "TeamSpeak"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing TeamSpeak..."
+                #winget install -e SyncTrayzor.SyncTrayzor | Out-Host
+                if($?) { Write-Host "Installed TeamSpeak"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "TeamSpeak"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # TeamViewer
+        if ($global:install_hashtab -eq 1){
+            $software = "TeamViewer"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing TeamViewer..."
+                #winget install -e TeamViewer.TeamViewer | Out-Host
+                if($?) { Write-Host "Installed TeamViewer"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "TeamViewer"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Total Commander
+        if ($global:install_hashtab -eq 1){
+            $software = "Total Commander"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Total Commander..."
+                #winget install -e Ghisler.TotalCommander | Out-Host
+                if($?) { Write-Host "Installed Total Commander"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "Total Commander"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # VLC
+        if ($global:install_hashtab -eq 1){
+            $software = "VLC"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing VLC..."
+                #winget install -e VideoLAN.VLC | Out-Host
+                if($?) { Write-Host "Installed VLC"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "VLC"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # VLC
+        if ($global:install_hashtab -eq 1){
+            $software = "WinSCP"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing WinSCP..."
+                #winget install -e WinSCP.WinSCP | Out-Host
+                if($?) { Write-Host "Installed WinSCP"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "WinSCP"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
     }else{
         Write-Host "Winget not found, installing it "
         "[$(TS)] AfterFORMAT [INFO] Winget not found, installing it " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }
+
+        # Samsung Flow
+        if ($global:install_samsungflow -eq 1){
+            $software = "Samsung Flow"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing WinSCP..."
+                #winget install -e WinSCP.WinSCP | Out-Host
+                #https://www.microsoft.com/en-us/p/samsung-flow/9nblggh5gb0m
+                if($?) { Write-Host "Installed WinSCP"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "WinSCP"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
 
 
 
@@ -604,18 +1096,6 @@ $app_red.Add_Unchecked({
     $global:install_red = 0
     Write-Host "Remove Empty Directories    " $global:install_red
     "[$(TS)] AfterFORMAT unchecked Remove Empty Directories " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-})
-
-
-$app_rivatuner.Add_Checked({
-    $global:install_rivatuner = 1
-    Write-Host "RivaTuner Statistics Server " $global:install_rivatuner
-    "[$(TS)] AfterFORMAT checked RivaTuner Statistics Server " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-})
-$app_rivatuner.Add_Unchecked({
-    $global:install_rivatuner = 0
-    Write-Host "RivaTuner Statistics Server " $global:install_rivatuner
-    "[$(TS)] AfterFORMAT unchecked RivaTuner Statistics Server " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
