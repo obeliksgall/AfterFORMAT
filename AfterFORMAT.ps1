@@ -112,7 +112,7 @@ if ($destination -eq ''){
 #LOGS
 function TS {Get-Date -Format 'yyyy-MM-dd HH:mm:ss'}
 Get-ChildItem -Path $destination -Filter AfterFORMAT.log | Where-Object {$_.Length -gt 1mb} | ForEach-Object {Rename-Item $_.FullName {$_.FullName -replace "AfterFORMAT",("AfterFORMAT_$TS")}}
-"[$(TS)] AfterFORMAT [INFO] START " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+"[$(TS)] AfterFORMAT [START] START AfterFORMAT " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
 
 
@@ -298,7 +298,7 @@ $apply.Add_click({
 
 #CLOSE APP
 $close_window.Add_click({
-    "[$(TS)] AfterFORMAT [INFO] close " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    "[$(TS)] AfterFORMAT [CLOSE] Close AfterFORMAT" | Out-File -FilePath $destination\AfterFORMAT.log -Append
     Clear-Host
     $Form.Close()
 })
