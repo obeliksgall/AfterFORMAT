@@ -101,6 +101,13 @@ $destination = $destination.Replace($scriptname,'')
 Write-Host "Run from: " $destination
 
 
+if ($scriptname -eq ''){
+    $scriptname = 'AfterFORMAT'
+}
+if ($destination -eq ''){
+    $destination = 'C:\'
+}
+
 
 #LOGS
 function TS {Get-Date -Format 'yyyy-MM-dd HH:mm:ss'}
