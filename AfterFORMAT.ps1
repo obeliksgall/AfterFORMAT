@@ -55,6 +55,12 @@
         <CheckBox Name="change_uac" Content="Change UAC" HorizontalAlignment="Left" Margin="502,100,0,0" VerticalAlignment="Top" Width="150" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="change_autologon" Content="Enable auto log on" HorizontalAlignment="Left" Margin="502,125,0,0" VerticalAlignment="Top" Width="150" Height="16" FontSize="13" FontWeight="Normal"/>
 
+        <!-- <Label Name="label_OS" Content="" HorizontalAlignment="Left" Margin="477,218,0,0" VerticalAlignment="Top" Width="200"/> -->
+        <!-- <Label Name="label_HN" Content="" HorizontalAlignment="Left" Margin="477,246,0,0" VerticalAlignment="Top" Width="200"/> -->
+        <!-- <Label Name="label_DiskC" Content="" HorizontalAlignment="Left" Margin="477,301,0,0" VerticalAlignment="Top" Width="200"/> -->
+        <!-- <Label Name="label_RAM" Content="" HorizontalAlignment="Left" Margin="477,328,0,0" VerticalAlignment="Top" Width="200"/> -->
+        <!-- <Label Name="label_User" Content="" HorizontalAlignment="Left" Margin="477,273,0,0" VerticalAlignment="Top" Width="200"/> -->
+
         <Separator Height="10" Margin="10,425,10,0" VerticalAlignment="Top" Background="White"/>
         <Separator Height="10" Margin="10,80,10,0" VerticalAlignment="Top" Background="White"/>
         <Separator HorizontalAlignment="Left" Height="325" Margin="273,95,0,0" VerticalAlignment="Top" Width="334" RenderTransformOrigin="0.5,0.5" Background="White">
@@ -94,11 +100,11 @@ $urlChocolatey = "https://community.chocolatey.org/install.ps1"
 
 #SCRIPT PATH
 $destination = $MyInvocation.MyCommand.Path
-Write-Host "Run from: " $destination
+Write-Host "Full path:   " $destination
 $scriptname = $MyInvocation.MyCommand.Name
 Write-Host "Script name: " $scriptname
 $destination = $destination.Replace($scriptname,'')
-Write-Host "Run from: " $destination
+Write-Host "Run from:    " $destination
 
 
 if ($scriptname -eq ''){
@@ -116,51 +122,65 @@ Get-ChildItem -Path $destination -Filter AfterFORMAT.log | Where-Object {$_.Leng
 
 
 
-"[$(TS)] AfterFORMAT [INFO] Run from: " + $destination | Out-File -FilePath $destination\AfterFORMAT.log -Append
+"[$(TS)] AfterFORMAT [INFO] Run from:    " + $destination | Out-File -FilePath $destination\AfterFORMAT.log -Append
 "[$(TS)] AfterFORMAT [INFO] Script name: " + $scriptname | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
 
 
-$global:hostnameV = $env:COMPUTERNAME
-$set_hostname.text = $global:hostnameV
+$global:hostnameV   =  $env:COMPUTERNAME
+$set_hostname.text  =  $global:hostnameV
 
-$global:install_7zip = 0
-$global:install_adguard = 0
-$global:install_audacity = 0
-$global:install_discord = 0
-$global:install_displaycal = 0
-$global:install_googlechrome = 0
-$global:install_hashtab = 0
-$global:install_keepass = 0
-$global:install_klitecodecpack = 0
-$global:install_logitechghub = 0
-$global:install_mediainfo = 0
-$global:install_msiafterburner = 0
-$global:install_notepadPP = 0
-$global:install_obsstudio = 0
-$global:install_putty = 0
-$global:install_red = 0
-$global:install_rivatuner = 0
-$global:install_samsungdex = 0
-$global:install_samsungflow = 0
-$global:install_soundswitch = 0
-$global:install_spotify = 0
-$global:install_synctrayzor = 0
-$global:install_teamspeak3 = 0
-$global:install_teamviewer = 0
-$global:install_totalcommander = 0
-$global:install_VLC = 0
-$global:install_winspc = 0
+$global:install_7zip            = 0
+$global:install_adguard         = 0
+$global:install_audacity        = 0
+$global:install_discord         = 0
+$global:install_displaycal      = 0
+$global:install_googlechrome    = 0
+$global:install_hashtab         = 0
+$global:install_keepass         = 0
+$global:install_klitecodecpack  = 0
+$global:install_logitechghub    = 0
+$global:install_mediainfo       = 0
+$global:install_msiafterburner  = 0
+$global:install_notepadPP       = 0
+$global:install_obsstudio       = 0
+$global:install_putty           = 0
+$global:install_red             = 0
+$global:install_rivatuner       = 0
+$global:install_samsungdex      = 0
+$global:install_samsungflow     = 0
+$global:install_soundswitch     = 0
+$global:install_spotify         = 0
+$global:install_synctrayzor     = 0
+$global:install_teamspeak3      = 0
+$global:install_teamviewer      = 0
+$global:install_totalcommander  = 0
+$global:install_VLC             = 0
+$global:install_winspc          = 0
 
 $global:UAC = 0
 $global:ALO = 0
+
+#$global:label_OS = "System: "
+#$global:label_HN = $env:COMPUTERNAME
+#$global:label_User = "Current user: "
+#$global:label_DiskC = "Disk C space: "
+#$global:label_RAM = "RAM size: "
+
+#$label_OS.content = $global:label_OS
+#$label_HN.text = $global:label_HN
+#$label_User.content = $global:label_User
+#$label_DiskC.content = $global:label_DiskC
+#$label_RAM.content = $global:label_RAM
+
+
 
 "[$(TS)] AfterFORMAT [INFO] set global variables " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
 
 
 $apply.Add_click({
-    Write-Host "Installation in progress..."
+    Write-Host "`nInstallation in progress..."
     "[$(TS)] AfterFORMAT [INFO] Installation in progress..." | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
     "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $destination\AfterFORMAT.log -Append
@@ -177,7 +197,7 @@ $apply.Add_click({
         "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }
     if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe){
-        Write-Host "Winget already installed, continue "
+        Write-Host "Winget already installed, continue `n"
         "[$(TS)] AfterFORMAT [INFO] Winget already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
         # 7-Zip
@@ -240,6 +260,8 @@ $apply.Add_click({
         Write-Host "Auto log in enable. Go to netplwiz"
         "[$(TS)] AfterFORMAT [INFO] Auto log in enable. Go to netplwiz " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }
+
+    #Write-Host "`n"
 })
 
 
@@ -395,192 +417,192 @@ $change_autologon.Add_Unchecked({
 
 $app_7zip.Add_Checked({
     $global:install_7zip = 1
-    Write-Host "7-Zip " $global:install_7zip
+    Write-Host "7-Zip                       " $global:install_7zip
     "[$(TS)] AfterFORMAT checked 7-Zip " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_7zip.Add_Unchecked({
     $global:install_7zip = 0
-    Write-Host "7-Zip " $global:install_7zip
+    Write-Host "7-Zip                       " $global:install_7zip
     "[$(TS)] AfterFORMAT unchecked 7-Zip " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_adguard.Add_Checked({
     $global:install_adguard = 1
-    Write-Host "Adguard " $global:install_adguard
+    Write-Host "Adguard                     " $global:install_adguard
     "[$(TS)] AfterFORMAT checked Adguard " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_adguard.Add_Unchecked({
     $global:install_adguard = 0
-    Write-Host "Adguard " $global:install_adguard
+    Write-Host "Adguard                     " $global:install_adguard
     "[$(TS)] AfterFORMAT unchecked Adguard " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_audacity.Add_Checked({
     $global:install_audacity = 1
-    Write-Host "Audacity " $global:install_audacity
+    Write-Host "Audacity                    " $global:install_audacity
     "[$(TS)] AfterFORMAT checked Audacity " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_audacity.Add_Unchecked({
     $global:install_audacity = 0
-    Write-Host "Audacity " $global:install_audacity
+    Write-Host "Audacity                    " $global:install_audacity
     "[$(TS)] AfterFORMAT unchecked Audacity " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_discord.Add_Checked({
     $global:install_discord = 1
-    Write-Host "Discord " $global:install_discord
+    Write-Host "Discord                     " $global:install_discord
     "[$(TS)] AfterFORMAT checked Discord " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_discord.Add_Unchecked({
     $global:install_discord = 0
-    Write-Host "Discord " $global:install_discord
+    Write-Host "Discord                     " $global:install_discord
     "[$(TS)] AfterFORMAT unchecked Discord " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_displaycal.Add_Checked({
     $global:install_displaycal = 1
-    Write-Host "DisplayCAL " $global:install_displaycal
+    Write-Host "DisplayCAL                  " $global:install_displaycal
     "[$(TS)] AfterFORMAT checked DisplayCAL " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_displaycal.Add_Unchecked({
     $global:install_displaycal = 0
-    Write-Host "DisplayCAL " $global:install_displaycal
+    Write-Host "DisplayCAL                  " $global:install_displaycal
     "[$(TS)] AfterFORMAT unchecked DisplayCAL " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_googlechrome.Add_Checked({
     $global:install_googlechrome = 1
-    Write-Host "Google Chrome " $global:install_googlechrome
+    Write-Host "Google Chrome               " $global:install_googlechrome
     "[$(TS)] AfterFORMAT checked Google Chrome " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_googlechrome.Add_Unchecked({
     $global:install_googlechrome = 0
-    Write-Host "Google Chrome " $global:install_googlechrome
+    Write-Host "Google Chrome               " $global:install_googlechrome
     "[$(TS)] AfterFORMAT unchecked Google Chrome " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_hashtab.Add_Checked({
     $global:install_hashtab = 1
-    Write-Host "HashTab " $global:install_hashtab
+    Write-Host "HashTab                     " $global:install_hashtab
     "[$(TS)] AfterFORMAT checked HashTab " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_hashtab.Add_Unchecked({
     $global:install_hashtab = 0
-    Write-Host "HashTab " $global:install_hashtab
+    Write-Host "HashTab                     " $global:install_hashtab
     "[$(TS)] AfterFORMAT unchecked HashTab " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_keepass.Add_Checked({
     $global:install_keepass = 1
-    Write-Host "KeePass " $global:install_keepass
+    Write-Host "KeePass                     " $global:install_keepass
     "[$(TS)] AfterFORMAT checked KeePass " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_keepass.Add_Unchecked({
     $global:install_keepass = 0
-    Write-Host "KeePass " $global:install_keepass
+    Write-Host "KeePass                     " $global:install_keepass
     "[$(TS)] AfterFORMAT unchecked KeePass " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_klitecodecpack.Add_Checked({
     $global:install_klitecodecpack = 1
-    Write-Host "K-Lite Codec Pack" $global:install_klitecodecpack
+    Write-Host "K-Lite Codec Pack           " $global:install_klitecodecpack
     "[$(TS)] AfterFORMAT checked K-Lite Codec Pack " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_klitecodecpack.Add_Unchecked({
     $global:install_klitecodecpack = 0
-    Write-Host "K-Lite Codec Pack" $global:install_klitecodecpack
+    Write-Host "K-Lite Codec Pack           " $global:install_klitecodecpack
     "[$(TS)] AfterFORMAT unchecked K-Lite Codec Pack " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_logitechghub.Add_Checked({
     $global:install_logitechghub = 1
-    Write-Host "Logitech G HUB" $global:install_logitechghub
+    Write-Host "Logitech G HUB              " $global:install_logitechghub
     "[$(TS)] AfterFORMAT checked Logitech G HUB " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_logitechghub.Add_Unchecked({
     $global:install_logitechghub = 0
-    Write-Host "Logitech G HUB" $global:install_logitechghub
+    Write-Host "Logitech G HUB              " $global:install_logitechghub
     "[$(TS)] AfterFORMAT unchecked Logitech G HUB " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_mediainfo.Add_Checked({
     $global:install_mediainfo = 1
-    Write-Host "MediaInfo" $global:install_mediainfo
+    Write-Host "MediaInfo                   " $global:install_mediainfo
     "[$(TS)] AfterFORMAT checked MediaInfo " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_mediainfo.Add_Unchecked({
     $global:install_mediainfo = 0
-    Write-Host "MediaInfo" $global:install_mediainfo
+    Write-Host "MediaInfo                   " $global:install_mediainfo
     "[$(TS)] AfterFORMAT unchecked MediaInfo " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_msiafterburner.Add_Checked({
     $global:install_msiafterburner = 1
-    Write-Host "MSI Afterburner " $global:install_msiafterburner
+    Write-Host "MSI Afterburner             " $global:install_msiafterburner
     "[$(TS)] AfterFORMAT checked MSI Afterburner " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_msiafterburner.Add_Unchecked({
     $global:install_msiafterburner = 0
-    Write-Host "MSI Afterburner " $global:install_msiafterburner
+    Write-Host "MSI Afterburner             " $global:install_msiafterburner
     "[$(TS)] AfterFORMAT unchecked MSI Afterburner " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_notepadPP.Add_Checked({
     $global:install_notepadPP = 1
-    Write-Host "Notepad++ " $global:install_notepadPP
+    Write-Host "Notepad++                   " $global:install_notepadPP
     "[$(TS)] AfterFORMAT checked Notepad++ " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_notepadPP.Add_Unchecked({
     $global:install_notepadPP = 0
-    Write-Host "Notepad++ " $global:install_notepadPP
+    Write-Host "Notepad++                   " $global:install_notepadPP
     "[$(TS)] AfterFORMAT unchecked Notepad++ " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_obsstudio.Add_Checked({
     $global:install_obsstudio = 1
-    Write-Host "OBS Studio " $global:install_obsstudio
+    Write-Host "OBS Studio                  " $global:install_obsstudio
     "[$(TS)] AfterFORMAT checked OBS Studio " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_obsstudio.Add_Unchecked({
     $global:install_obsstudio = 0
-    Write-Host "OBS Studio " $global:install_obsstudio
+    Write-Host "OBS Studio                  " $global:install_obsstudio
     "[$(TS)] AfterFORMAT unchecked OBS Studio " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_putty.Add_Checked({
     $global:install_putty = 1
-    Write-Host "Putty " $global:install_putty
+    Write-Host "Putty                       " $global:install_putty
     "[$(TS)] AfterFORMAT checked Putty " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_putty.Add_Unchecked({
     $global:install_putty = 0
-    Write-Host "Putty " $global:install_putty
+    Write-Host "Putty                       " $global:install_putty
     "[$(TS)] AfterFORMAT unchecked Putty " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_red.Add_Checked({
     $global:install_red = 1
-    Write-Host "Remove Empty Directories " $global:install_red
+    Write-Host "Remove Empty Directories    " $global:install_red
     "[$(TS)] AfterFORMAT checked Remove Empty Directories " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_red.Add_Unchecked({
     $global:install_red = 0
-    Write-Host "Remove Empty Directories " $global:install_red
+    Write-Host "Remove Empty Directories    " $global:install_red
     "[$(TS)] AfterFORMAT unchecked Remove Empty Directories " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
@@ -599,120 +621,120 @@ $app_rivatuner.Add_Unchecked({
 
 $app_samsungdex.Add_Checked({
     $global:install_samsungdex = 1
-    Write-Host "Samsung DEX " $global:install_samsungdex
+    Write-Host "Samsung DEX                 " $global:install_samsungdex
     "[$(TS)] AfterFORMAT checked Samsung DEX " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_samsungdex.Add_Unchecked({
     $global:install_samsungdex = 0
-    Write-Host "Samsung DEX " $global:install_samsungdex
+    Write-Host "Samsung DEX                 " $global:install_samsungdex
     "[$(TS)] AfterFORMAT unchecked Samsung DEX " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_samsungflow.Add_Checked({
     $global:install_samsungflow = 1
-    Write-Host "Samsung Flow " $global:install_samsungflow
+    Write-Host "Samsung Flow                " $global:install_samsungflow
     "[$(TS)] AfterFORMAT checked Samsung Flow " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_samsungflow.Add_Unchecked({
     $global:install_samsungflow = 0
-    Write-Host "Samsung Flow " $global:install_samsungflow
+    Write-Host "Samsung Flow                " $global:install_samsungflow
     "[$(TS)] AfterFORMAT unchecked Samsung Flow " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_soundswitch.Add_Checked({
     $global:install_soundswitch = 1
-    Write-Host "SoundSwitch " $global:install_soundswitch
+    Write-Host "SoundSwitch                 " $global:install_soundswitch
     "[$(TS)] AfterFORMAT checked SoundSwitch " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_soundswitch.Add_Unchecked({
     $global:install_soundswitch = 0
-    Write-Host "SoundSwitch " $global:install_soundswitch
+    Write-Host "SoundSwitch                 " $global:install_soundswitch
     "[$(TS)] AfterFORMAT unchecked SoundSwitch " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_spotify.Add_Checked({
     $global:install_spotify = 1
-    Write-Host "Spotify " $global:install_spotify
+    Write-Host "Spotify                     " $global:install_spotify
     "[$(TS)] AfterFORMAT checked Spotify " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_spotify.Add_Unchecked({
     $global:install_spotify = 0
-    Write-Host "Spotify " $global:install_spotify
+    Write-Host "Spotify                     " $global:install_spotify
     "[$(TS)] AfterFORMAT unchecked Spotify " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_synctrayzor.Add_Checked({
     $global:install_synctrayzor = 1
-    Write-Host "Syncthing " $global:install_synctrayzor
+    Write-Host "Syncthing                   " $global:install_synctrayzor
     "[$(TS)] AfterFORMAT checked Syncthing " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_synctrayzor.Add_Unchecked({
     $global:install_synctrayzor = 0
-    Write-Host "Syncthing " $global:install_synctrayzor
+    Write-Host "Syncthing                   " $global:install_synctrayzor
     "[$(TS)] AfterFORMAT unchecked Syncthing " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_teamspeak3.Add_Checked({
     $global:install_teamspeak3 = 1
-    Write-Host "Team Speak 3 " $global:install_teamspeak3
+    Write-Host "Team Speak 3                " $global:install_teamspeak3
     "[$(TS)] AfterFORMAT checked Team Speak 3 " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_teamspeak3.Add_Unchecked({
     $global:install_teamspeak3 = 0
-    Write-Host "Team Speak 3 " $global:install_teamspeak3
+    Write-Host "Team Speak 3                " $global:install_teamspeak3
     "[$(TS)] AfterFORMAT unchecked Team Speak 3 " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_teamviewer.Add_Checked({
     $global:install_teamviewer = 1
-    Write-Host "Team Viewer " $global:install_teamviewer
+    Write-Host "Team Viewer                 " $global:install_teamviewer
     "[$(TS)] AfterFORMAT checked Team Viewer " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_teamviewer.Add_Unchecked({
     $global:install_teamviewer = 0
-    Write-Host "Team Viewer " $global:install_teamviewer
+    Write-Host "Team Viewer                 " $global:install_teamviewer
     "[$(TS)] AfterFORMAT unchecked Team Viewer " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_totalcommander.Add_Checked({
     $global:install_totalcommander = 1
-    Write-Host "Total Commander " $global:install_totalcommander
+    Write-Host "Total Commander             " $global:install_totalcommander
     "[$(TS)] AfterFORMAT checked Total Commander " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_totalcommander.Add_Unchecked({
     $global:install_totalcommander = 0
-    Write-Host "Total Commander " $global:install_totalcommander
+    Write-Host "Total Commander             " $global:install_totalcommander
     "[$(TS)] AfterFORMAT unchecked Total Commander " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_VLC.Add_Checked({
     $global:install_VLC = 1
-    Write-Host "VLC Player " $global:install_VLC
+    Write-Host "VLC Player                  " $global:install_VLC
     "[$(TS)] AfterFORMAT checked VLC Player " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_VLC.Add_Unchecked({
     $global:install_VLC = 0
-    Write-Host "VLC Player " $global:install_VLC
+    Write-Host "VLC Player                  " $global:install_VLC
     "[$(TS)] AfterFORMAT unchecked VLC Player " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
 $app_winspc.Add_Checked({
     $global:install_winspc = 1
-    Write-Host "WinSPC " $global:install_winspc
+    Write-Host "WinSPC                      " $global:install_winspc
     "[$(TS)] AfterFORMAT checked WinSPC " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_winspc.Add_Unchecked({
     $global:install_winspc = 0
-    Write-Host "WinSPC " $global:install_winspc
+    Write-Host "WinSPC                      " $global:install_winspc
     "[$(TS)] AfterFORMAT unchecked WinSPC " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
