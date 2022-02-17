@@ -1,7 +1,6 @@
 ﻿# SOURCE: https://github.com/ChrisTitusTech/win10script
 # SOURCE: https://docs.microsoft.com/en-us/powershell/
 
-
 If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
 	Exit
@@ -78,12 +77,10 @@ If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]:
 </Window>
 "@
 
-
 #Read XAML
 $reader=(New-Object System.Xml.XmlNodeReader $xaml) 
 try{$Form=[Windows.Markup.XamlReader]::Load( $reader )}
 catch{Write-Host "Unable to load Windows.Markup.XamlReader"; exit}
-
 
 # Store Form Objects In PowerShell
 $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -Value $Form.FindName($_.Name)}
@@ -100,19 +97,25 @@ $urlChocolatey = "https://community.chocolatey.org/install.ps1"
 
 #SCRIPT PATH
 $destination = $MyInvocation.MyCommand.Path
+Write-Host "Run from: " $destination
 $scriptname = $MyInvocation.MyCommand.Name
+Write-Host "Script name: " $scriptname
 $destination = $destination.Replace($scriptname,'')
+Write-Host "Run from: " $destination
 
 
-
-#$ApplyHostName.Add_click({
-#DO...
-#})
 
 #LOGS
 function TS {Get-Date -Format 'yyyy-MM-dd HH:mm:ss'}
 Get-ChildItem -Path $destination -Filter AfterFORMAT.log | Where-Object {$_.Length -gt 1mb} | ForEach-Object {Rename-Item $_.FullName {$_.FullName -replace "AfterFORMAT",("AfterFORMAT_$TS")}}
-"[$(TS)] AfterFORMAT start " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+"[$(TS)] AfterFORMAT [INFO] START " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+
+
+
+"[$(TS)] AfterFORMAT [INFO] Run from: " + $destination | Out-File -FilePath $destination\AfterFORMAT.log -Append
+"[$(TS)] AfterFORMAT [INFO] Script name: " + $scriptname | Out-File -FilePath $destination\AfterFORMAT.log -Append
+
+
 
 $global:hostnameV = $env:COMPUTERNAME
 $set_hostname.text = $global:hostnameV
@@ -148,11 +151,13 @@ $global:install_winspc = 0
 $global:UAC = 0
 $global:ALO = 0
 
-"[$(TS)] AfterFORMAT set global variables " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+"[$(TS)] AfterFORMAT [INFO] set global variables " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+
+
 
 $apply.Add_click({
-    Write-Host "Tutaj instaluję programy zaznaczone checkboxem :D"
-    Write-Host $global:install_7zip
+    #Write-Host "Tutaj instaluję programy zaznaczone checkboxem :D"
+    
     $installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
     if ($global:install_7zip -eq 1){
         $software = "7-Zip";
@@ -286,15 +291,17 @@ $apply.Add_click({
 #if($?) { Write-Host "Installed Wargaming Game Center" }
 })
 
+
 #CLOSE APP
 $close_window.Add_click({
-    "[$(TS)] AfterFORMAT close " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    "[$(TS)] AfterFORMAT [INFO] close " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     Clear-Host
     $Form.Close()
 })
 
+
 $enable_nfs.Add_Click({
-    "[$(TS)] AfterFORMAT Start enable NFS " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    "[$(TS)] AfterFORMAT [INFO] Start enable NFS " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     Enable-WindowsOptionalFeature -Online -FeatureName "ServicesForNFS-ClientOnly" -All
     Enable-WindowsOptionalFeature -Online -FeatureName "ClientForNFS-Infrastructure" -All
     Enable-WindowsOptionalFeature -Online -FeatureName "NFS-Administration" -All
@@ -304,122 +311,429 @@ $enable_nfs.Add_Click({
     nfsadmin client start
     nfsadmin client localhost config fileaccess=755 SecFlavors=+sys -krb5 -krb5i
     Write-Host "NFS is enable"
-    "[$(TS)] AfterFORMAT Finish enable NFS " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    "[$(TS)] AfterFORMAT [INFO] Finish enable NFS " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
+
 
 $get_directx.Add_click({
     Write-Host "Open website with DirectX End-User Runtime"
     [void] [System.Windows.MessageBox]::Show( "Please click, download and install", "Script completed", "OK", "Information" )
+    "[$(TS)] AfterFORMAT [INFO] Open website with DirectX End-User Runtime " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     Start $urlMDX
 })
+
 
 $get_redist.Add_click({
     Write-Host "Open website with Visual C++ Redistributable Runtimes All-in-One"
     [void] [System.Windows.MessageBox]::Show( "Please click, download and install", "Script completed", "OK", "Information" )
+    "[$(TS)] AfterFORMAT [INFO] Open website with Visual C++ Redistributable Runtimes All-in-One " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     Start $urlMVC
 })
 
-$install_chocolatey.Add_click({
-    Write-Host "Tutaj instaluję chocolatey"
 
-    $chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing
+$install_chocolatey.Add_click({
+    $chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing | Out-File -FilePath $destination\AfterFORMAT.log -Append
     $chocolatey.Content
+    "[$(TS)] AfterFORMAT [INFO] Install Chocolatey " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
     #Write-Host $result
     #add code to install...
 
 })
 
+
 $install_winget.Add_click({
 Write-Host "Checking winget..."
+"[$(TS)] AfterFORMAT Checking winget " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe){
     Write-Host "Winget Already Installed"
+    "[$(TS)] AfterFORMAT [INFO] Winget Already Installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 }  
 else{
 	Write-Host "Winget not found, installing it now."
+    "[$(TS)] AfterFORMAT [INFO] Winget not found, installing it now " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 	Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
 	$nid = (Get-Process AppInstaller).Id
 	Wait-Process -Id $nid
 	Write-Host "Winget Installed"
+    "[$(TS)] AfterFORMAT [INFO] Winget Installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 }
 })
+
 
 $open_ninite.Add_click({
     Write-Host "Open Ninite.com"
     [void] [System.Windows.MessageBox]::Show( "Please click, choose what you need, download and install", "Script completed", "OK", "Information" )
+    "[$(TS)] AfterFORMAT [INFO] Open Ninite.com " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     Start $urlNinite
 })
+
 
 $apply_hostname.Add_click({
 #Write-Host $set_hostname
 #Write-Host $global:hostnameV
+"[$(TS)] AfterFORMAT [INFO] Initialize the change hostname to " + $set_hostname.text | Out-File -FilePath $destination\AfterFORMAT.log -Append
     if ($set_hostname.text -eq $global:hostnameV){
         Write-Host "hostname cannot be the same"
+        "[$(TS)] AfterFORMAT [ERR] Hostname cannot be the same! " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }else{
         #Write-Host "now is ok"
         $hostnameValue = $set_hostname.text
         Rename-Computer -NewName $hostnameValue
         Write-Host "Change hostname to " $hostnameValue " please reboot your PC"
         [void] [System.Windows.MessageBox]::Show( "Change hostname to " + $hostname + " please reboot your PC", "Script completed", "OK", "Information" )
+        "[$(TS)] AfterFORMAT [INFO] Finish change hostname to " + $hostnameValue + " please reboot your PC" | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }
 })
+
 
 $change_uac.Add_Checked({
     $global:UAC = 1
     Write-Host $global:UAC
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $change_uac.Add_Unchecked({
     $global:UAC = 0
     Write-Host $global:UAC
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
+
 
 $change_autologon.Add_Checked({
     $global:ALO = 1
     Write-Host $global:ALO
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $change_autologon.Add_Unchecked({
     $global:ALO = 0
     Write-Host $global:ALO
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
+
 
 $app_7zip.Add_Checked({
     $global:install_7zip = 1
     Write-Host $global:install_7zip
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 $app_7zip.Add_Unchecked({
     $global:install_7zip = 0
     Write-Host $global:install_7zip
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 })
 
 
+$app_adguard.Add_Checked({
+    $global:install_adguard = 1
+    Write-Host $global:install_adguard
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_adguard.Add_Unchecked({
+    $global:install_adguard = 0
+    Write-Host $global:install_adguard
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
 
 
-#$InstallApps.Add_click({
-#    Write-Host "Installing 7zip..."
-#    winget install -e 7zip.7zip | Out-Host
-#    if($?) { Write-Host "Installed 7zip"}
-#    [void] [System.Windows.MessageBox]::Show( "I will not be able to install everything. But I can open the pages for you :D", "Script completed", "OK", "Information" )
-#})
+$app_audacity.Add_Checked({
+    $global:install_audacity = 1
+    Write-Host $global:install_audacity
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_audacity.Add_Unchecked({
+    $global:install_audacity = 0
+    Write-Host $global:install_audacity
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
 
-#$InstallGamesLaunchers.Add_click({
-#    Write-Host "Installing Bethesda..."
-#    winget install -e Bethesda.Launcher | Out-Host
-#    if($?) { Write-Host "Installed Bethesda" }
-#    [void] [System.Windows.MessageBox]::Show( "I will not be able to install everything. But I can open the pages for you :D", "Script completed", "OK", "Information" )
-#})
 
-#$ApplyHostName.Add_click({
-#    $hostnameValue = $hostname.Text
-#    #Write-Host "New name is "  $hostnameValue
-#    if($hostnameValue -contains "WRITE HERE HOSTNAME"){
-#        Write-Host "Wrong hostname!!!" $hostnameValue
-#    }else
-#    {
-#        Rename-Computer -NewName $hostname
-#        Write-Host "Change hostname to " $hostname " please reboot your PC"
-#        [void] [System.Windows.MessageBox]::Show( "Change hostname to " + $hostname + " please reboot your PC", "Script completed", "OK", "Information" )
-#    }
-#})
+$app_discord.Add_Checked({
+    $global:install_discord = 1
+    Write-Host $global:install_discord
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_discord.Add_Unchecked({
+    $global:install_discord = 0
+    Write-Host $global:install_discord
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_displaycal.Add_Checked({
+    $global:install_displaycal = 1
+    Write-Host $global:install_displaycal
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_displaycal.Add_Unchecked({
+    $global:install_displaycal = 0
+    Write-Host $global:install_displaycal
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_googlechrome.Add_Checked({
+    $global:install_googlechrome = 1
+    Write-Host $global:install_googlechrome
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_googlechrome.Add_Unchecked({
+    $global:install_googlechrome = 0
+    Write-Host $global:install_googlechrome
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_hashtab.Add_Checked({
+    $global:install_hashtab = 1
+    Write-Host $global:install_hashtab
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_hashtab.Add_Unchecked({
+    $global:install_hashtab = 0
+    Write-Host $global:install_hashtab
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_keepass.Add_Checked({
+    $global:install_keepass = 1
+    Write-Host $global:install_keepass
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_keepass.Add_Unchecked({
+    $global:install_keepass = 0
+    Write-Host $global:install_keepass
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_klitecodecpack.Add_Checked({
+    $global:install_klitecodecpack = 1
+    Write-Host $global:install_klitecodecpack
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_klitecodecpack.Add_Unchecked({
+    $global:install_klitecodecpack = 0
+    Write-Host $global:install_klitecodecpack
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_logitechghub.Add_Checked({
+    $global:install_logitechghub = 1
+    Write-Host $global:install_logitechghub
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_logitechghub.Add_Unchecked({
+    $global:install_logitechghub = 0
+    Write-Host $global:install_logitechghub
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_mediainfo.Add_Checked({
+    $global:install_mediainfo = 1
+    Write-Host $global:install_mediainfo
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_mediainfo.Add_Unchecked({
+    $global:install_mediainfo = 0
+    Write-Host $global:install_mediainfo
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_msiafterburner.Add_Checked({
+    $global:install_msiafterburner = 1
+    Write-Host $global:install_msiafterburner
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_msiafterburner.Add_Unchecked({
+    $global:install_msiafterburner = 0
+    Write-Host $global:install_msiafterburner
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_notepadPP.Add_Checked({
+    $global:install_notepadPP = 1
+    Write-Host $global:install_notepadPP
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_notepadPP.Add_Unchecked({
+    $global:install_notepadPP = 0
+    Write-Host $global:install_notepadPP
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_obsstudio.Add_Checked({
+    $global:install_obsstudio = 1
+    Write-Host $global:install_obsstudio
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_obsstudio.Add_Unchecked({
+    $global:install_obsstudio = 0
+    Write-Host $global:install_obsstudio
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_putty.Add_Checked({
+    $global:install_putty = 1
+    Write-Host $global:install_putty
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_putty.Add_Unchecked({
+    $global:install_putty = 0
+    Write-Host $global:install_putty
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_red.Add_Checked({
+    $global:install_red = 1
+    Write-Host $global:install_red
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_red.Add_Unchecked({
+    $global:install_red = 0
+    Write-Host $global:install_red
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_rivatuner.Add_Checked({
+    $global:install_rivatuner = 1
+    Write-Host $global:install_rivatuner
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_rivatuner.Add_Unchecked({
+    $global:install_rivatuner = 0
+    Write-Host $global:install_rivatuner
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_samsungdex.Add_Checked({
+    $global:install_samsungdex = 1
+    Write-Host $global:install_samsungdex
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_samsungdex.Add_Unchecked({
+    $global:install_samsungdex = 0
+    Write-Host $global:install_samsungdex
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_samsungflow.Add_Checked({
+    $global:install_samsungflow = 1
+    Write-Host $global:install_samsungflow
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_samsungflow.Add_Unchecked({
+    $global:install_samsungflow = 0
+    Write-Host $global:install_samsungflow
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_soundswitch.Add_Checked({
+    $global:install_soundswitch = 1
+    Write-Host $global:install_soundswitch
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_soundswitch.Add_Unchecked({
+    $global:install_soundswitch = 0
+    Write-Host $global:install_soundswitch
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_spotify.Add_Checked({
+    $global:install_spotify = 1
+    Write-Host $global:install_spotify
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_spotify.Add_Unchecked({
+    $global:install_spotify = 0
+    Write-Host $global:install_spotify
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_synctrayzor.Add_Checked({
+    $global:install_synctrayzor = 1
+    Write-Host $global:install_synctrayzor
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_synctrayzor.Add_Unchecked({
+    $global:install_synctrayzor = 0
+    Write-Host $global:install_synctrayzor
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_teamspeak3.Add_Checked({
+    $global:install_teamspeak3 = 1
+    Write-Host $global:install_teamspeak3
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_teamspeak3.Add_Unchecked({
+    $global:install_teamspeak3 = 0
+    Write-Host $global:install_teamspeak3
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_teamviewer.Add_Checked({
+    $global:install_teamviewer = 1
+    Write-Host $global:install_teamviewer
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_teamviewer.Add_Unchecked({
+    $global:install_teamviewer = 0
+    Write-Host $global:install_teamviewer
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_totalcommander.Add_Checked({
+    $global:install_totalcommander = 1
+    Write-Host $global:install_totalcommander
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_totalcommander.Add_Unchecked({
+    $global:install_totalcommander = 0
+    Write-Host $global:install_totalcommander
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_VLC.Add_Checked({
+    $global:install_VLC = 1
+    Write-Host $global:install_VLC
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_VLC.Add_Unchecked({
+    $global:install_VLC = 0
+    Write-Host $global:install_VLC
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
+
+$app_winspc.Add_Checked({
+    $global:install_winspc = 1
+    Write-Host $global:install_winspc
+    "[$(TS)] AfterFORMAT checked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+$app_winspc.Add_Unchecked({
+    $global:install_winspc = 0
+    Write-Host $global:install_winspc
+    "[$(TS)] AfterFORMAT unchecked xxx " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+})
+
 
 #   !!!Please do not insert code below!!!
 
