@@ -1,4 +1,4 @@
-﻿If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
+﻿if(!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')){
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
 	Exit
 }
@@ -55,12 +55,6 @@
         <CheckBox Name="change_uac" Content="Change UAC" HorizontalAlignment="Left" Margin="502,100,0,0" VerticalAlignment="Top" Width="150" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="change_autologon" Content="Enable auto log on" HorizontalAlignment="Left" Margin="502,125,0,0" VerticalAlignment="Top" Width="150" Height="16" FontSize="13" FontWeight="Normal"/>
 
-        <!-- <Label Name="label_OS" Content="" HorizontalAlignment="Left" Margin="477,218,0,0" VerticalAlignment="Top" Width="200"/> -->
-        <!-- <Label Name="label_HN" Content="" HorizontalAlignment="Left" Margin="477,246,0,0" VerticalAlignment="Top" Width="200"/> -->
-        <!-- <Label Name="label_DiskC" Content="" HorizontalAlignment="Left" Margin="477,301,0,0" VerticalAlignment="Top" Width="200"/> -->
-        <!-- <Label Name="label_RAM" Content="" HorizontalAlignment="Left" Margin="477,328,0,0" VerticalAlignment="Top" Width="200"/> -->
-        <!-- <Label Name="label_User" Content="" HorizontalAlignment="Left" Margin="477,273,0,0" VerticalAlignment="Top" Width="200"/> -->
-
         <Separator Height="10" Margin="10,425,10,0" VerticalAlignment="Top" Background="White"/>
         <Separator Height="10" Margin="10,80,10,0" VerticalAlignment="Top" Background="White"/>
         <Separator HorizontalAlignment="Left" Height="325" Margin="273,95,0,0" VerticalAlignment="Top" Width="334" RenderTransformOrigin="0.5,0.5" Background="White">
@@ -75,6 +69,12 @@
         </Separator>
         
         <TextBox Name="set_hostname" HorizontalAlignment="Left" Height="26" Margin="477,150,0,0" TextWrapping="Wrap" Text="hostname" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Bold" TextAlignment="Center"/>
+
+        <!-- <Label Name="label_OS" Content="" HorizontalAlignment="Left" Margin="477,218,0,0" VerticalAlignment="Top" Width="200"/> -->
+        <!-- <Label Name="label_HN" Content="" HorizontalAlignment="Left" Margin="477,246,0,0" VerticalAlignment="Top" Width="200"/> -->
+        <!-- <Label Name="label_DiskC" Content="" HorizontalAlignment="Left" Margin="477,301,0,0" VerticalAlignment="Top" Width="200"/> -->
+        <!-- <Label Name="label_RAM" Content="" HorizontalAlignment="Left" Margin="477,328,0,0" VerticalAlignment="Top" Width="200"/> -->
+        <!-- <Label Name="label_User" Content="" HorizontalAlignment="Left" Margin="477,273,0,0" VerticalAlignment="Top" Width="200"/> -->
 
     </Grid>
 </Window>
