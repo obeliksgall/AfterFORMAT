@@ -166,51 +166,74 @@ $apply.Add_click({
     "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     $installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
-    # 7-Zip
-    if ($global:install_7zip -eq 1){
-        $software = "7-Zip"
+    if(test-path "C:\ProgramData\chocolatey\choco.exe"){
+        Write-Host "Chocolatey already installed, continue "
+        "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
-        if($installed -contains $software) {
-	        Write-Host "'$software' NOT is installed "
-            "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-            Write-Host "Installing 7zip..."
-            #winget install -e 7zip.7zip | Out-Host
-            #if($?) { Write-Host "Installed 7zip"}
-        } else {
-	        Write-Host "'$software' is installed "
-            "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-        }
+
+
     }else{
-        $software = "7-Zip"
-        Write-Host "Do not install '$software'"
-        "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        Write-Host "Chocolatey not found, installing it "
+        "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    }
+    if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe){
+        Write-Host "Winget already installed, continue "
+        "[$(TS)] AfterFORMAT [INFO] Winget already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+
+        # 7-Zip
+        if ($global:install_7zip -eq 1){
+            $software = "7-Zip"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing 7zip..."
+                #winget install -e 7zip.7zip | Out-Host
+                #if($?) { Write-Host "Installed 7zip"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "7-Zip"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+        # Google Chrome
+        if ($global:install_googlechrome -eq 1){
+            $software = "Google Chrome"
+
+            if($installed -contains $software) {
+	            Write-Host "'$software' NOT is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                Write-Host "Installing Google Chrome..."
+                #winget install -e 7zip.7zip | Out-Host
+                #if($?) { Write-Host "Installed 7zip"}
+            } else {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+            }
+        }else{
+            $software = "Google Chrome"
+            Write-Host "Do not install '$software'"
+            "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        }
+
+    }else{
+        Write-Host "Winget not found, installing it "
+        "[$(TS)] AfterFORMAT [INFO] Winget not found, installing it " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }
 
-    # Google Chrome
-    if ($global:install_googlechrome -eq 1){
-        $software = "Google Chrome"
 
-        if($installed -contains $software) {
-	        Write-Host "'$software' NOT is installed "
-            "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-            Write-Host "Installing Google Chrome..."
-            #winget install -e 7zip.7zip | Out-Host
-            #if($?) { Write-Host "Installed 7zip"}
-        } else {
-	        Write-Host "'$software' is installed "
-            "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-        }
-    }else{
-        $software = "Google Chrome"
-        Write-Host "Do not install '$software'"
-        "[$(TS)] AfterFORMAT [INFO] do not install '$software' " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-    }
 
     if ($global:UAC -eq 1){
         #Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 5 #OR 0
         Write-Host "Change UAC settings to 5"
         "[$(TS)] AfterFORMAT [INFO] Change UAC settings to 5 " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }
+
+
 
     if ($global:ALO -eq 1){
         #Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\PasswordLess\Device" -Name "DevicePasswordLessBuildVersion" -Value 0
