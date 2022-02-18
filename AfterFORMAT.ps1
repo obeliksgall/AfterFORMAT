@@ -86,7 +86,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 #SCRIPT PATH & NAME
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
-    $global:destination = 'C:\'
+    $global:destination = 'C:\AfterFORMAT.ps1'
 }
 Write-Host "Full path:   " $destination
 
