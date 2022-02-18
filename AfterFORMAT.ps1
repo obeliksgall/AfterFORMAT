@@ -18,12 +18,12 @@
         <Button Name="close_window" Content="Close" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="install_winget" Content="Install WINGET" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="install_chocolatey" Content="Install CHOCOLATEY" HorizontalAlignment="Left" Margin="145,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
-        <Button Name="apply" Content="Apply" HorizontalAlignment="Center" Margin="0,445,0,0" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold"/>
-        <Button Name="apply_hostname" Content="Apply hostname" HorizontalAlignment="Left" Margin="514,183,0,0" VerticalAlignment="Top" Height="24" Width="126" FontWeight="Bold"/>
-        <Button Name="enable_nfs" Content="Enable NFS" HorizontalAlignment="Left" Margin="280,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
-        <Button Name="get_directx" Content="Get DirectX" HorizontalAlignment="Left" Margin="145,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
-        <Button Name="get_redist" Content="Get Visual C++" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="open_ninite" Content="Open ninite.com" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Height="25" Width="124" FontWeight="Bold"/>
+        <Button Name="get_redist" Content="Get Visual C++" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Button Name="get_directx" Content="Get DirectX" HorizontalAlignment="Left" Margin="145,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Button Name="enable_nfs" Content="Enable NFS" HorizontalAlignment="Left" Margin="280,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Button Name="apply_hostname" Content="Apply hostname" HorizontalAlignment="Left" Margin="514,183,0,0" VerticalAlignment="Top" Height="24" Width="126" FontWeight="Bold"/>
+        <Button Name="apply" Content="Apply" HorizontalAlignment="Center" Margin="0,445,0,0" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold"/>
         
         <CheckBox Name="app_7zip" Content="7-zip" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_adguard" Content="Adguard" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
@@ -155,32 +155,43 @@ $global:urlchocolatey = "https://community.chocolatey.org/install.ps1"
 $global:chocolateyinstall = "chocolateyinstall.ps1"
 $global:chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing
 $global:chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+
+
+
+$global:urlNinite = "https://ninite.com/"
+$global:urlMVC = "https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/"
+$global:urlMDX = "https://www.microsoft.com/pl-pl/download/details.aspx?id=35"
+
+
+
+$global:newhostname   =  $env:COMPUTERNAME
+$global:set_hostname.text  =  $global:newhostname
 "[$(TS)] AfterFORMAT [INFO] Set default global variables " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
 
 
 #INSTALL WINGET
 $install_winget.Add_click({
-    "[$(TS)] AfterFORMAT [INFO] Checking winget " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    "[$(TS)] AfterFORMAT [INFO] Checking winget " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     Write-Host "Checking winget..."
 
     if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
-        "[$(TS)] AfterFORMAT [INFO] Winget already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [INFO] Winget already installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
         Write-Host "Winget already installed"
     } else {
-        "[$(TS)] AfterFORMAT [INFO] Winget not found, installing it now" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [INFO] Winget not found, installing it now" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
         Write-Host "Winget not found, installing it now"
         Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
         $nid = (Get-Process AppInstaller).Id
         Wait-Process -Id $nid
-        "[$(TS)] AfterFORMAT [INFO] Winget already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [INFO] Winget already installed" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
         Write-Host "Winget already installed"
     }
 
     if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
-        "[$(TS)] AfterFORMAT [INFO] Winget already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [INFO] Winget already installed" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     } else {
-        "[$(TS)] AfterFORMAT [ERR] Can't install Winget" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [ERR] Can't install Winget" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     }
 })
 
@@ -188,37 +199,96 @@ $install_winget.Add_click({
 
 #INSTALL CHOCOLATEY
 $install_chocolatey.Add_click({
-    "[$(TS)] AfterFORMAT [INFO] Checking chocolatey " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    "[$(TS)] AfterFORMAT [INFO] Checking chocolatey " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     Write-Host "Checking chocolatey..."
 
     if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
-        "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
         Write-Host "Chocolatey already installed"
     } else {
-        "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it now" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it now" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
         Write-Host "Chocolatey not found, installing it now"
         Write-Host "New2"
 
         $ExecutionPolicy = Get-ExecutionPolicy
         Set-ExecutionPolicy Unrestricted
-        "[$(TS)] AfterFORMAT [INFO] Change ExecutionPolicy to Unrestricted" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [INFO] Change ExecutionPolicy to Unrestricted" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
         New-Item -Path $global:destination -Name $global:chocolateyinstall -ItemType File -Value $global:chocolatey.content -Force
         #& $global:destination$global:chocolateyinstall
-        & $global:destination$global:chocolateyinstall | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        & $global:destination$global:chocolateyinstall | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
         Remove-Item -Path $global:destination$global:chocolateyinstall -Force
 
         Set-ExecutionPolicy $ExecutionPolicy
-        "[$(TS)] AfterFORMAT [INFO] Change ExecutionPolicy to " + $ExecutionPolicy | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [INFO] Change ExecutionPolicy to " + $ExecutionPolicy | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
-        "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
         Write-Host "Chocolatey already installed"
     }
 
     if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
-        "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     } else {
-        "[$(TS)] AfterFORMAT [ERR] Can't install chocolatey" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        "[$(TS)] AfterFORMAT [ERR] Can't install chocolatey" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    }
+})
+
+
+
+#OPEN ninite.com
+$open_ninite.Add_click({
+    [void] [System.Windows.MessageBox]::Show( "Ninite.com, choose what you want and install", "Script completed", "OK", "Information" )
+    "[$(TS)] AfterFORMAT [INFO] Open Ninite.com, choose what you want and install" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    Start $global:urlNinite
+})
+
+
+
+#OPEN Visual C++ Redistributable Runtimes All-in-One
+$get_redist.Add_click({
+    [void] [System.Windows.MessageBox]::Show( "Open Visual C++ Redistributable Runtimes All-in-One, download and install", "Script completed", "OK", "Information" )
+    "[$(TS)] AfterFORMAT [INFO] Open Visual C++ Redistributable Runtimes All-in-One, download and install" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    Start $global:urlMVC
+})
+
+
+
+#OPEN DirectX End-User Runtime
+$get_directx.Add_click({
+    [void] [System.Windows.MessageBox]::Show( "DirectX End-User Runtime, download and install", "Script completed", "OK", "Information" )
+    "[$(TS)] AfterFORMAT [INFO] Open DirectX End-User Runtime, download and install" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    Start $global:urlMDX
+})
+
+
+
+#ENABLE NFS
+$enable_nfs.Add_click({
+    Enable-WindowsOptionalFeature -Online -FeatureName "ServicesForNFS-ClientOnly" -All
+    Enable-WindowsOptionalFeature -Online -FeatureName "ClientForNFS-Infrastructure" -All
+    Enable-WindowsOptionalFeature -Online -FeatureName "NFS-Administration" -All
+    nfsadmin client stop
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default" -Name "AnonymousUID" -Type DWord -Value 0
+    Set-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\ClientForNFS\CurrentVersion\Default" -Name "AnonymousGID" -Type DWord -Value 0
+    nfsadmin client start
+    nfsadmin client localhost config fileaccess=755 SecFlavors=+sys -krb5 -krb5i
+    Write-Host "NFS is enable"
+    "[$(TS)] AfterFORMAT [INFO] NFS is on" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+})
+
+
+
+#CHANGE HOSTNAME
+$apply_hostname.Add_click({
+    if ($global:set_hostname.text -eq $global:newhostname) {
+        Write-Host "Hostname cannot be the same!"
+        "[$(TS)] AfterFORMAT [ERR] Hostname cannot be the same!" + $set_hostname.text | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    } else {
+        $hostname = $global:set_hostname.text
+        #Rename-Computer -NewName $hostname
+        Write-Host "Change hostname to " $hostname " please reboot your PC"
+        [void] [System.Windows.MessageBox]::Show( "Change hostname to " + $hostname + " please reboot your PC", "Script completed", "OK", "Information" )
+        "[$(TS)] AfterFORMAT [INFO] Finish change hostname to " + $hostname + " please reboot your PC" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     }
 })
 
