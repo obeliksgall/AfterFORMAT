@@ -1,8 +1,9 @@
-﻿if(!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')){
+﻿if(!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
 	Exit
 }
 
+# FORM INFO
 [void][System.Reflection.Assembly]::LoadWithPartialName('presentationframework')
 [xml]$XAML = @"
 <Window 
@@ -10,7 +11,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-
 
         Title="AfterFORMAT" Height="525" Width="750" MinWidth="750" MinHeight="500" MaxWidth="750" MaxHeight="525">
     <Grid Background="#FF7D7D7D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
@@ -73,25 +73,17 @@
 </Window>
 "@
 
-#Read XAML
+#READ AXML
 $reader=(New-Object System.Xml.XmlNodeReader $xaml) 
 try{$Form=[Windows.Markup.XamlReader]::Load( $reader )}
 catch{Write-Host "Unable to load Windows.Markup.XamlReader"; exit}
 
-# Store Form Objects In PowerShell
+#STORE FORM OBJECTS IN POWERSHELL
 $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -Value $Form.FindName($_.Name)}
 
 
 
-#LINKS
-$urlMVC = "https://www.techpowerup.com/download/visual-c-redistributable-runtime-package-all-in-one/"
-$urlMDX = "https://www.microsoft.com/pl-pl/download/details.aspx?id=35"
-$urlNinite = "https://ninite.com/"
-$urlChocolatey = "https://community.chocolatey.org/install.ps1"
-
-
-
-#SCRIPT PATH
+#SCRIPT PATH & NAME
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = 'C:\'
@@ -111,10 +103,13 @@ if ( $global:destination -eq $null ) {
 Write-Host "Run from:    " $destination
 
 
+
 #LOGS
 function TS {Get-Date -Format 'yyyy-MM-dd HH:mm:ss'}
 Get-ChildItem -Path $destination -Filter AfterFORMAT.log | Where-Object {$_.Length -gt 5mb} | ForEach-Object {Rename-Item $_.FullName {$_.FullName -replace "AfterFORMAT",("AfterFORMAT_$TS")}}
 "[$(TS)] AfterFORMAT [START] START AfterFORMAT " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+
+
 
 #Show Form
 $Form.ShowDialog() | out-null
