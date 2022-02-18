@@ -7,11 +7,11 @@ If there is something missing (id packages do not exist in Winet or Chocolatey),
 
 Paste this command into Powershell (admin):
 
-iex ((New-Object System.Net.WebClient).DownloadString('https://bit.ly/36olMtd'))
+iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/obeliksgall/AfterFORMAT/main/AfterFORMAT.ps1'))
 
 Or
 
-iwr -useb https://bit.ly/36olMtd | iex
+iwr -useb https://raw.githubusercontent.com/obeliksgall/AfterFORMAT/main/AfterFORMAT.ps1 | iex
 
 ![image](https://user-images.githubusercontent.com/23260174/154544172-51689d39-2fd9-4c6d-8e3c-432d707b63ad.png)
 
