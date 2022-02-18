@@ -176,8 +176,8 @@ $apply.Add_click({
     "[$(TS)] AfterFORMAT [INFO] Installation in progress..." | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
     "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $destination\AfterFORMAT.log -Append
-    $installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $destination\AfterFORMAT.log -Append
-    $installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+    $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
 
     Write-Host "Tutaj jest plik: " $installed
 
@@ -212,12 +212,14 @@ $apply.Add_click({
         Write-Host "`nWinget already installed, continue "
         "[$(TS)] AfterFORMAT [INFO] Winget already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
+        Write-Host $global:installed
+
         # 7-Zip
         if ($global:install_7zip -eq 1){
             $software = "7-Zip"
 
-            #if($installed -contains $software) {
-            if($installed.Contains('world')){
+            if($global:installed -contains $software) {
+            #if($global:installed.Contains('world')){
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
                 winget install -e 7zip.7zip | Out-Host
                 if($?) { Write-Host "Installed 7zip"}
