@@ -89,7 +89,7 @@ Write-Host "Full path1  :" $global:destination
 if ( $global:destination -eq $null ) {
     Write-Host "Zmiana nr 1"
     $global:destination = "C:\AfterFORMAT.ps1"
-    Write-Host "Full path   :" $global:destination
+    Write-Host "Full path   :" $global:destination ":"
 }
 
 $global:scriptname = $MyInvocation.MyCommand.Name
@@ -97,7 +97,7 @@ Write-Host "Script name1:" $global:scriptname
 if ( $global:scriptname -eq $null -or $global:scriptname -contains " ") {
     Write-Host "Zmiana nr 2"
     $global:scriptname = "AfterFORMAT.ps1"
-    Write-Host "Script name :" $global:scriptname
+    Write-Host "Script name :" $global:scriptname ":"
 }
 
 $global:destination = $global:destination.Replace($global:scriptname,'')
@@ -105,7 +105,7 @@ Write-Host "Run from1   :" $global:destination
 if ( $global:destination -eq $null ) {
     Write-Host "Zmiana nr 3"
     $global:destination = 'C:\'
-    Write-Host "Run from    :" $global:destination
+    Write-Host "Run from    :" $global:destination ":"
 }
 
 
