@@ -177,6 +177,9 @@ $apply.Add_click({
 
     "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     $installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    $installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+
+    Write-Host "Tutaj jest plik: " $installed
 
     if(test-path "C:\ProgramData\chocolatey\choco.exe"){
         Write-Host "`nChocolatey already installed, continue "
