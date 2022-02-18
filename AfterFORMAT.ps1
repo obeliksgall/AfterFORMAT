@@ -116,37 +116,37 @@ Get-ChildItem -Path $global:destination -Filter AfterFORMAT.log | Where-Object {
 
 
 #GLOBAL VARIABLES
-$global:app_7zip = 0
-$global:app_adguard = 0
-$global:app_audacity = 0
-$global:app_discord = 0
-$global:app_displaycal = 0
-$global:app_googlechrome = 0
-$global:app_hashtab = 0
-$global:app_keepass = 0
-$global:app_klitecodecpack = 0
-$global:app_logitechghub = 0
-$global:app_mediainfo = 0
-$global:app_msiafterburner = 0
-$global:app_notepadPP = 0
-$global:app_obsstudio = 0
-$global:app_putty = 0
-$global:app_red = 0
-$global:app_samsungdex = 0
-$global:app_samsungflow = 0
-$global:app_soundswitch = 0
-$global:app_spotify = 0
-$global:app_synctrayzor = 0
-$global:app_teamspeak3 = 0
-$global:app_teamviewer = 0
-$global:app_totalcommander = 0
-$global:app_VLC = 0
-$global:app_winscp = 0
+$global:install_7zip = 0
+$global:install_adguard = 0
+$global:install_audacity = 0
+$global:install_discord = 0
+$global:install_displaycal = 0
+$global:install_googlechrome = 0
+$global:install_hashtab = 0
+$global:install_keepass = 0
+$global:install_klitecodecpack = 0
+$global:install_logitechghub = 0
+$global:install_mediainfo = 0
+$global:install_msiafterburner = 0
+$global:install_notepadPP = 0
+$global:install_obsstudio = 0
+$global:install_putty = 0
+$global:install_red = 0
+$global:install_samsungdex = 0
+$global:install_samsungflow = 0
+$global:install_soundswitch = 0
+$global:install_spotify = 0
+$global:install_synctrayzor = 0
+$global:install_teamspeak3 = 0
+$global:install_teamviewer = 0
+$global:install_totalcommander = 0
+$global:install_VLC = 0
+$global:install_winscp = 0
 
 
 
-$global:change_autologon = 0
-$global:change_uac = 0
+$global:autologon = 0
+$global:uac = 0
 $global:set_hostname.text = $global:hostnameV
 
 
@@ -290,6 +290,240 @@ $apply_hostname.Add_click({
         [void] [System.Windows.MessageBox]::Show( "Change hostname to " + $hostname + " please reboot your PC", "Script completed", "OK", "Information" )
         "[$(TS)] AfterFORMAT [INFO] Finish change hostname to " + $hostname + " please reboot your PC" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     }
+})
+
+
+
+$app_7zip.Add_Checked({
+    $global:install_7zip = 1
+    })
+$app_7zip.Add_Unchecked({
+    $global:install_7zip = 0
+    })
+
+$app_adguard.Add_Checked({
+    $global:install_adguard = 1
+    })
+$app_adguard.Add_Unchecked({
+    $global:install_adguard = 1
+    })
+
+$app_audacity.Add_Checked({
+    $global:install_audacity = 1
+    })
+$app_audacity.Add_Unchecked({
+    $global:install_audacity = 0
+    })
+
+$app_discord.Add_Checked({
+    $global:install_discord = 1
+    })
+$app_discord.Add_Unchecked({
+    $global:install_discord = 0
+    })
+
+$app_displaycal.Add_Checked({
+    $global:install_displaycal = 1
+    })
+$app_displaycal.Add_Unchecked({
+    $global:install_displaycal = 0
+    })
+
+$app_googlechrome.Add_Checked({
+    $global:install_googlechrome = 1
+    })
+$app_googlechrome.Add_Unchecked({
+    $global:install_googlechrome = 0
+    })
+
+$app_hashtab.Add_Checked({
+    $global:install_hashtab = 1
+    })
+$app_hashtab.Add_Unchecked({
+    $global:install_hashtab = 0
+    })
+
+$app_keepass.Add_Checked({
+    $global:install_keepass = 1
+    })
+$app_keepass.Add_Unchecked({
+    $global:install_keepass = 0
+    })
+
+$app_klitecodecpack.Add_Checked({
+    $global:install_klitecodecpack = 1
+    })
+$app_klitecodecpack.Add_Unchecked({
+    $global:install_klitecodecpack = 0
+    })
+
+$app_logitechghub.Add_Checked({
+    $global:install_logitechghub = 1
+    })
+$app_logitechghub.Add_Unchecked({
+    $global:install_logitechghub = 0
+    })
+
+$app_mediainfo.Add_Checked({
+    $global:install_mediainfo = 1
+    })
+$app_mediainfo.Add_Unchecked({
+    $global:install_mediainfo = 0
+    })
+
+$app_msiafterburner.Add_Checked({
+    $global:install_msiafterburner = 1
+    })
+$app_msiafterburner.Add_Unchecked({
+    $global:install_msiafterburner = 0
+    })
+
+$app_notepadPP.Add_Checked({
+    $global:install_notepadPP = 1
+    })
+$app_notepadPP.Add_Unchecked({
+    $global:install_notepadPP = 0
+    })
+
+$app_obsstudio.Add_Checked({
+    $global:install_obsstudio = 1
+    })
+$app_obsstudio.Add_Unchecked({
+    $global:install_obsstudio = 0
+    })
+
+$app_putty.Add_Checked({
+    $global:install_putty = 1
+    })
+$app_putty.Add_Unchecked({
+    $global:install_putty = 0
+    })
+
+$app_red.Add_Checked({
+    $global:install_red = 1
+    })
+$app_red.Add_Unchecked({
+    $global:install_red = 0
+    })
+
+$app_samsungdex.Add_Checked({
+    $global:install_samsungdex = 1
+    })
+$app_samsungdex.Add_Unchecked({
+    $global:install_samsungdex = 0
+    })
+
+$app_samsungflow.Add_Checked({
+    $global:install_samsungflow = 1
+    })
+$app_samsungflow.Add_Unchecked({
+    $global:install_samsungflow = 0
+    })
+
+$app_soundswitch.Add_Checked({
+    $global:install_soundswitch = 1
+    })
+$app_soundswitch.Add_Unchecked({
+    $global:install_soundswitch = 0
+    })
+
+$app_spotify.Add_Checked({
+    $global:install_spotify = 1
+    })
+$app_spotify.Add_Unchecked({
+    $global:install_spotify = 0
+    })
+
+$app_synctrayzor.Add_Checked({
+    $global:install_synctrayzor = 1
+    })
+$app_synctrayzor.Add_Unchecked({
+    $global:install_synctrayzor = 0
+    })
+
+$app_teamspeak3.Add_Checked({
+    $global:install_teamspeak3 = 1
+    })
+$app_teamspeak3.Add_Unchecked({
+    $global:install_teamspeak3 = 0
+    })
+
+$app_teamviewer.Add_Checked({
+    $global:install_teamviewer = 1
+    })
+$app_teamviewer.Add_Unchecked({
+    $global:install_teamviewer = 0
+    })
+
+$app_totalcommander.Add_Checked({
+    $global:install_totalcommander = 1
+    })
+$app_totalcommander.Add_Unchecked({
+    $global:install_totalcommander = 0
+    })
+
+$app_VLC.Add_Checked({
+    $global:install_VLC = 1
+    })
+$app_VLC.Add_Unchecked({
+    $global:install_VLC = 0
+    })
+
+$app_winscp.Add_Checked({
+    $global:install_winscp = 1
+    })
+$app_winscp.Add_Unchecked({
+    $global:install_winscp = 0
+    })
+
+$change_autologon.Add_Checked({
+    $global:autologon = 1
+    })
+$change_autologon.Add_Unchecked({
+    $global:autologon = 0
+    })
+
+$change_uac.Add_Checked({
+    $global:uac = 1
+    })
+$change_uac.Add_Unchecked({
+    $global:uac = 0
+    })
+
+#$global:install_7zip
+#$global:install_adguard
+#$global:install_audacity
+#$global:install_discord
+#$global:install_displaycal
+#$global:install_googlechrome
+#$global:install_hashtab
+#$global:install_keepass
+#$global:install_klitecodecpack
+#$global:install_logitechghub
+#$global:install_mediainfo
+#$global:install_msiafterburner
+#$global:install_notepadPP
+#$global:install_obsstudio
+#$global:install_putty
+#$global:install_red
+#$global:install_samsungdex
+#$global:install_samsungflow
+#$global:install_soundswitch
+#$global:install_spotify
+#$global:install_synctrayzor
+#$global:install_teamspeak3
+#$global:install_teamviewer
+#$global:install_totalcommander
+#$global:install_VLC
+#$global:install_winscp
+#$global:autologon
+#$global:uac
+
+
+
+#APPLY AND INSTALL
+$apply.Add_click({
+
 })
 
 
