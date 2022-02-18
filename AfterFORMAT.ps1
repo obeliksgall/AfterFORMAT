@@ -154,6 +154,7 @@ $global:set_hostname.text = $global:hostnameV
 $global:urlchocolatey = "https://community.chocolatey.org/install.ps1"
 $global:chocolateyinstall = "chocolateyinstall.ps1"
 $global:chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing
+$global:chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 "[$(TS)] AfterFORMAT [INFO] Set default global variables " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
 
@@ -203,8 +204,8 @@ $install_chocolatey.Add_click({
         Set-ExecutionPolicy Unrestricted
 
         New-Item -Path $global:destination -Name $global:chocolateyinstall -ItemType File -Value $global:chocolatey.content -Force
-        #Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$global:destination$global:chocolateyinstall`"" -Verb RunAs
         & $global:destination$global:chocolateyinstall
+        & $global:destination$global:chocolateyinstall | Out-File -FilePath $destination\AfterFORMAT.log -Append
         Remove-Item -Path $global:destination$global:chocolateyinstall -Force
 
         Set-ExecutionPolicy $ExecutionPolicy
