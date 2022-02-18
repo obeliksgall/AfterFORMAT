@@ -106,10 +106,6 @@ if ($scriptname -eq ''){
 if ($destination -eq ''){
     $destination = 'C:\'
 }
-Write-Host $destination.Length
-Write-Host "Full path:   " $destination
-Write-Host "Script name: " $scriptname
-Write-Host "Run from:    " $destination
 
 
 #LOGS
@@ -122,7 +118,7 @@ Get-ChildItem -Path $destination -Filter AfterFORMAT.log | Where-Object {$_.Leng
 "[$(TS)] AfterFORMAT [INFO] Run from:    " + $destination | Out-File -FilePath $destination\AfterFORMAT.log -Append
 "[$(TS)] AfterFORMAT [INFO] Script name: " + $scriptname | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
-$global:destination = $destination
+
 
 $global:hostnameV   =  $env:COMPUTERNAME
 $set_hostname.text  =  $global:hostnameV
@@ -733,20 +729,18 @@ $install_chocolatey.Add_click({
     Write-Host "Checking Chocolatey..."
     "[$(TS)] AfterFORMAT Checking Chocolatey " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     
-    $installchoco = $global:destination + 'AfterFORMATinstallchoco.ps1'
 
     if(test-path "C:\ProgramData\chocolatey\choco.exe"){
         Write-Host "Chocolatey already installed"
         "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }else{
+        $installchoco = $destination + 'AfterFORMATinstallchoco.ps1'
+
 	    Write-Host "Chocolatey not found, installing it now"
-        #Write-Host $destination
         "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it now " | Out-File -FilePath $destination\AfterFORMAT.log -Append
         $chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing
         $chocolateyLOG = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing | Out-File -FilePath $destination\AfterFORMAT.log -Append
-        #$destinationC = 'c:\'
-        #Write-Host $destination
-        New-Item -Path $destinationC -Name 'AfterFORMATinstallchoco.ps1' -ItemType File -Value $chocolatey.Content
+        New-Item -Path $destination -Name 'AfterFORMATinstallchoco.ps1' -ItemType File -Value $chocolatey.Content
         & $installchoco | Out-File -FilePath $destination\AfterFORMAT.log -Append
         Start-Sleep 5
         Write-Host "Finish install Chocolatey"
