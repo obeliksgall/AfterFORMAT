@@ -107,7 +107,7 @@ if ($destination -eq ''){
     $destination = 'C:\'
 }
 
-$global:destination = $destination
+#$global:destination = $destination
 
 #LOGS
 function TS {Get-Date -Format 'yyyy-MM-dd HH:mm:ss'}
@@ -740,6 +740,7 @@ $install_chocolatey.Add_click({
         "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it now " | Out-File -FilePath $destination\AfterFORMAT.log -Append
         $chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing
         $chocolateyLOG = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        Write-Host $destination
         New-Item -Path $destination -Name 'AfterFORMATinstallchoco.ps1' -ItemType File -Value $chocolatey.Content
         & $installchoco | Out-File -FilePath $destination\AfterFORMAT.log -Append
         Start-Sleep 5
