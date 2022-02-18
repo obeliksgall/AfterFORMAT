@@ -734,13 +734,13 @@ $install_chocolatey.Add_click({
         Write-Host "Chocolatey already installed"
         "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }else{
-        $installchoco = $destination + 'AfterFORMATinstallchoco.ps1'
+        $installchoco = 'C:\AfterFORMATinstallchoco.ps1'
 
 	    Write-Host "Chocolatey not found, installing it now"
         "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it now " | Out-File -FilePath $destination\AfterFORMAT.log -Append
         $chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing
         $chocolateyLOG = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing | Out-File -FilePath $destination\AfterFORMAT.log -Append
-        New-Item -Path $destination -Name 'AfterFORMATinstallchoco.ps1' -ItemType File -Value $chocolatey.Content
+        New-Item -Path C:\ -Name 'AfterFORMATinstallchoco.ps1' -ItemType File -Value $chocolatey.Content
         & $installchoco | Out-File -FilePath $destination\AfterFORMAT.log -Append
         Start-Sleep 5
         Write-Host "Finish install Chocolatey"
