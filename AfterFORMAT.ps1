@@ -198,7 +198,7 @@ $install_chocolatey.Add_click({
         Write-Host "Chocolatey not found, installing it now"
 
         New-Item -Path $global:destination -Name $global:chocolateyinstall -ItemType File -Value $global:chocolatey.content -Force
-        & $global:destination$global:chocolateyinstall + " -NoProfile -ExecutionPolicy Bypass"
+        Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$global:destination$global:chocolateyinstall`"" -Verb RunAs
         Remove-Item -Path $global:destination$global:chocolateyinstall -Force
 
         "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
