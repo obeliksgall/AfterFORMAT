@@ -88,32 +88,32 @@ $global:destination = $MyInvocation.MyCommand.Path
 Write-Host "Full path1  :" $global:destination
 if ( $global:destination -eq $null ) {
     Write-Host "Zmiana nr 1"
-    $global:destination = 'C:\AfterFORMAT.ps1'
+    $global:destination = "C:\AfterFORMAT.ps1"
+    Write-Host "Full path   :" $global:destination
 }
-Write-Host "Full path   :" $global:destination
 
 $global:scriptname = $MyInvocation.MyCommand.Name
 Write-Host "Script name1:" $global:scriptname
 if ( $global:scriptname -eq $null ) {
     Write-Host "Zmiana nr 2"
-    $global:scriptname = 'AfterFORMAT.ps1'
+    $global:scriptname = "AfterFORMAT.ps1"
+    Write-Host "Script name :" $global:scriptname
 }
-Write-Host "Script name :" $global:scriptname
 
-$global:destination = $global:destination.Replace($scriptname,'')
+$global:destination = $global:destination.Replace($global:scriptname,'')
 Write-Host "Run from1   :" $global:destination
 if ( $global:destination -eq $null ) {
     Write-Host "Zmiana nr 3"
     $global:destination = 'C:\'
+    Write-Host "Run from    :" $global:destination
 }
-Write-Host "Run from    :" $global:destination
 
 
 
 #LOGS
 function TS {Get-Date -Format 'yyyy-MM-dd HH:mm:ss'}
-Get-ChildItem -Path $destination -Filter AfterFORMAT.log | Where-Object {$_.Length -gt 5mb} | ForEach-Object {Rename-Item $_.FullName {$_.FullName -replace "AfterFORMAT",("AfterFORMAT_$TS")}}
-"[$(TS)] AfterFORMAT [START] START AfterFORMAT " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+Get-ChildItem -Path $global:destination -Filter AfterFORMAT.log | Where-Object {$_.Length -gt 5mb} | ForEach-Object {Rename-Item $_.FullName {$_.FullName -replace "AfterFORMAT",("AfterFORMAT_$(TS)")}}
+"[$(TS)] AfterFORMAT [START] START AfterFORMAT " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
 
 
