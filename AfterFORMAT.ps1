@@ -1,4 +1,4 @@
-﻿if(!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
+﻿If (!([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]'Administrator')) {
 	Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$PSCommandPath`"" -Verb RunAs
 	Exit
 }
@@ -88,19 +88,19 @@ $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = 'C:\AfterFORMAT.ps1'
 }
-Write-Host "Full path:   " $destination
+Write-Host "Full path   :" $destination
 
 $global:scriptname = $MyInvocation.MyCommand.Name
 if ( $global:scriptname -eq $null ) {
     $global:scriptname = 'AfterFORMAT.ps1'
 }
-Write-Host "Script name: " $scriptname
+Write-Host "Script name :" $scriptname
 
-$global:destination = $destination.Replace($scriptname,'')
+$global:destination = $global:destination.Replace($scriptname,'')
 if ( $global:destination -eq $null ) {
     $global:destination = 'C:\'
 }
-Write-Host "Run from:    " $destination
+Write-Host "Run from    :" $destination
 
 
 
