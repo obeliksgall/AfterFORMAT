@@ -106,10 +106,13 @@ if ($scriptname -eq ''){
 if ($destination -eq ''){
     $destination = 'C:\'
 }
+if ($destinationlength -gt 3){
+    $destination = 'C:\'
+}
 Write-Host "Full path:   " $destination
 Write-Host "Script name: " $scriptname
 Write-Host "Run from:    " $destination
-#$global:destination = $destination
+
 
 #LOGS
 function TS {Get-Date -Format 'yyyy-MM-dd HH:mm:ss'}
@@ -121,7 +124,7 @@ Get-ChildItem -Path $destination -Filter AfterFORMAT.log | Where-Object {$_.Leng
 "[$(TS)] AfterFORMAT [INFO] Run from:    " + $destination | Out-File -FilePath $destination\AfterFORMAT.log -Append
 "[$(TS)] AfterFORMAT [INFO] Script name: " + $scriptname | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
-
+$global:destination = $destination
 
 $global:hostnameV   =  $env:COMPUTERNAME
 $set_hostname.text  =  $global:hostnameV
@@ -739,12 +742,12 @@ $install_chocolatey.Add_click({
         "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
     }else{
 	    Write-Host "Chocolatey not found, installing it now"
-        Write-Host $destination
+        #Write-Host $destination
         "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it now " | Out-File -FilePath $destination\AfterFORMAT.log -Append
         $chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing
         $chocolateyLOG = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing | Out-File -FilePath $destination\AfterFORMAT.log -Append
         #$destinationC = 'c:\'
-        Write-Host $destination
+        #Write-Host $destination
         New-Item -Path $destinationC -Name 'AfterFORMATinstallchoco.ps1' -ItemType File -Value $chocolatey.Content
         & $installchoco | Out-File -FilePath $destination\AfterFORMAT.log -Append
         Start-Sleep 5
