@@ -106,9 +106,7 @@ if ($scriptname -eq ''){
 if ($destination -eq ''){
     $destination = 'C:\'
 }
-if ($destinationlength -gt 3){
-    $destination = 'C:\'
-}
+Write-Host $destination.Length
 Write-Host "Full path:   " $destination
 Write-Host "Script name: " $scriptname
 Write-Host "Run from:    " $destination
