@@ -15,9 +15,9 @@
         Title="AfterFORMAT" Height="525" Width="750" MinWidth="750" MinHeight="500" MaxWidth="750" MaxHeight="525">
     <Grid Background="#FF7D7D7D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         
+        <Button Name="close_window" Content="Close" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="apply" Content="Apply" HorizontalAlignment="Center" Margin="0,445,0,0" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold"/>
         <Button Name="apply_hostname" Content="Apply hostname" HorizontalAlignment="Left" Margin="514,183,0,0" VerticalAlignment="Top" Height="24" Width="126" FontWeight="Bold"/>
-        <Button Name="close_window" Content="Close" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="enable_nfs" Content="Enable NFS" HorizontalAlignment="Left" Margin="280,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="get_directx" Content="Get DirectX" HorizontalAlignment="Left" Margin="145,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="get_redist" Content="Get Visual C++" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
@@ -85,6 +85,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 #Clear-Host
 #SCRIPT PATH & NAME
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -103,10 +104,59 @@ if ( $global:destination -eq $null ) {
 Write-Host "Path    : " $global:destination
 
 
+
 #LOGS
 function TS {Get-Date -Format 'yyyy-MM-dd HH:mm:ss'}
 Get-ChildItem -Path $global:destination -Filter AfterFORMAT.log | Where-Object {$_.Length -gt 5mb} | ForEach-Object {Rename-Item $_.FullName {$_.FullName -replace "AfterFORMAT",("AfterFORMAT_$(TS)")}}
 "[$(TS)] AfterFORMAT [START] START AfterFORMAT " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+"[$(TS)] AfterFORMAT [INFO] FullName : $global:destination " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+"[$(TS)] AfterFORMAT [INFO] Name     : $global:scriptname " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+"[$(TS)] AfterFORMAT [INFO] Path     : $global:destination " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+
+
+
+#GLOBAL VARIABLES
+$global:app_7zip = 0
+$global:app_adguard = 0
+$global:app_audacity = 0
+$global:app_discord = 0
+$global:app_displaycal = 0
+$global:app_googlechrome = 0
+$global:app_hashtab = 0
+$global:app_keepass = 0
+$global:app_klitecodecpack = 0
+$global:app_logitechghub = 0
+$global:app_mediainfo = 0
+$global:app_msiafterburner = 0
+$global:app_notepadPP = 0
+$global:app_obsstudio = 0
+$global:app_putty = 0
+$global:app_red = 0
+$global:app_samsungdex = 0
+$global:app_samsungflow = 0
+$global:app_soundswitch = 0
+$global:app_spotify = 0
+$global:app_synctrayzor = 0
+$global:app_teamspeak3 = 0
+$global:app_teamviewer = 0
+$global:app_totalcommander = 0
+$global:app_VLC = 0
+$global:app_winscp = 0
+
+
+
+$global:change_autologon = 0
+$global:change_uac = 0
+$global:set_hostname.text = $global:hostnameV
+"[$(TS)] AfterFORMAT [INFO] set default global variables " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+
+
+
+#CLOSE FORM CLICK
+$close_window.Add_click({
+    "[$(TS)] AfterFORMAT [STOP] STOP AfterFORMAT " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $Form.Close()
+})
 
 
 
