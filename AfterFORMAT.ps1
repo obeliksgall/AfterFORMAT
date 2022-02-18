@@ -200,15 +200,16 @@ $install_chocolatey.Add_click({
         Write-Host "New2"
 
         $ExecutionPolicy = Get-ExecutionPolicy
-        Write-Host $ExecutionPolicy
         Set-ExecutionPolicy Unrestricted
+        "[$(TS)] AfterFORMAT [INFO] Change ExecutionPolicy to Unrestricted" | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
         New-Item -Path $global:destination -Name $global:chocolateyinstall -ItemType File -Value $global:chocolatey.content -Force
-        & $global:destination$global:chocolateyinstall
+        #& $global:destination$global:chocolateyinstall
         & $global:destination$global:chocolateyinstall | Out-File -FilePath $destination\AfterFORMAT.log -Append
         Remove-Item -Path $global:destination$global:chocolateyinstall -Force
 
         Set-ExecutionPolicy $ExecutionPolicy
+        "[$(TS)] AfterFORMAT [INFO] Change ExecutionPolicy to " + $ExecutionPolicy | Out-File -FilePath $destination\AfterFORMAT.log -Append
 
         "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
         Write-Host "Chocolatey already installed"
