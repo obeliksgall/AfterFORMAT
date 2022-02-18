@@ -94,7 +94,7 @@ if ( $global:destination -eq $null ) {
 
 $global:scriptname = $MyInvocation.MyCommand.Name
 Write-Host "Script name1:" $global:scriptname ":"
-if ( $global:scriptname -eq $null -or $global:scriptname -contains " ") {
+if ( $global:scriptname -eq $null -or $global:scriptname -contains "  ") {
     Write-Host "Zmiana nr 2"
     $global:scriptname = "AfterFORMAT.ps1"
     Write-Host "Script name :" $global:scriptname ":"
