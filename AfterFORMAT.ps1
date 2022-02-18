@@ -196,10 +196,17 @@ $install_chocolatey.Add_click({
     } else {
         "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it now" | Out-File -FilePath $destination\AfterFORMAT.log -Append
         Write-Host "Chocolatey not found, installing it now"
+        Write-Host "New"
+
+        $ExecutionPolicy = Get-ExecutionPolicy
+        Write-Host $ExecutionPolicy
+        Set-ExecutionPolicy Unrestricted
 
         New-Item -Path $global:destination -Name $global:chocolateyinstall -ItemType File -Value $global:chocolatey.content -Force
         Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -File `"$global:destination$global:chocolateyinstall`"" -Verb RunAs
         Remove-Item -Path $global:destination$global:chocolateyinstall -Force
+
+        Set-ExecutionPolicy $ExecutionPolicy
 
         "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
         Write-Host "Chocolatey already installed"
