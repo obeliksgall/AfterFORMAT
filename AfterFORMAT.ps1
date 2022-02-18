@@ -106,7 +106,9 @@ if ($scriptname -eq ''){
 if ($destination -eq ''){
     $destination = 'C:\'
 }
-
+Write-Host "Full path:   " $destination
+Write-Host "Script name: " $scriptname
+Write-Host "Run from:    " $destination
 #$global:destination = $destination
 
 #LOGS
