@@ -16,13 +16,13 @@
     <Grid Background="#FF7D7D7D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         
         <Button Name="close_window" Content="Close" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Button Name="install_winget" Content="Install WINGET" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Button Name="install_chocolatey" Content="Install CHOCOLATEY" HorizontalAlignment="Left" Margin="145,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="apply" Content="Apply" HorizontalAlignment="Center" Margin="0,445,0,0" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold"/>
         <Button Name="apply_hostname" Content="Apply hostname" HorizontalAlignment="Left" Margin="514,183,0,0" VerticalAlignment="Top" Height="24" Width="126" FontWeight="Bold"/>
         <Button Name="enable_nfs" Content="Enable NFS" HorizontalAlignment="Left" Margin="280,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="get_directx" Content="Get DirectX" HorizontalAlignment="Left" Margin="145,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="get_redist" Content="Get Visual C++" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
-        <Button Name="install_chocolatey" Content="Install CHOCOLATEY" HorizontalAlignment="Left" Margin="145,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
-        <Button Name="install_winget" Content="Install WINGET" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="open_ninite" Content="Open ninite.com" HorizontalAlignment="Left" Margin="280,10,0,0" VerticalAlignment="Top" Height="25" Width="124" FontWeight="Bold"/>
         
         <CheckBox Name="app_7zip" Content="7-zip" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
@@ -148,7 +148,69 @@ $global:app_winscp = 0
 $global:change_autologon = 0
 $global:change_uac = 0
 $global:set_hostname.text = $global:hostnameV
-"[$(TS)] AfterFORMAT [INFO] set default global variables " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+
+
+
+$global:urlchocolatey = "https://community.chocolatey.org/install.ps1"
+$global:chocolateyinstall = "chocolateyinstall.ps1"
+$global:chocolatey = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing
+"[$(TS)] AfterFORMAT [INFO] Set default global variables " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+
+
+
+#INSTALL WINGET
+$install_winget.Add_click({
+    "[$(TS)] AfterFORMAT [INFO] Checking winget " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    Write-Host "Checking winget..."
+
+    if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
+        "[$(TS)] AfterFORMAT [INFO] Winget already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        Write-Host "Winget already installed"
+    } else {
+        "[$(TS)] AfterFORMAT [INFO] Winget not found, installing it now" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        Write-Host "Winget not found, installing it now"
+        Start-Process "ms-appinstaller:?source=https://aka.ms/getwinget"
+        $nid = (Get-Process AppInstaller).Id
+        Wait-Process -Id $nid
+        "[$(TS)] AfterFORMAT [INFO] Winget already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        Write-Host "Winget already installed"
+    }
+
+    if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
+        "[$(TS)] AfterFORMAT [INFO] Winget already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    } else {
+        "[$(TS)] AfterFORMAT [ERR] Can't install Winget" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    }
+})
+
+
+
+#INSTALL CHOCOLATEY
+$install_chocolatey.Add_click({
+    "[$(TS)] AfterFORMAT [INFO] Checking chocolatey " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    Write-Host "Checking chocolatey..."
+
+    if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
+        "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        Write-Host "Chocolatey already installed"
+    } else {
+        "[$(TS)] AfterFORMAT [INFO] Chocolatey not found, installing it now" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        Write-Host "Chocolatey not found, installing it now"
+
+        New-Item -Path $global:destination -Name $global:chocolateyinstall -ItemType File -Value $global:chocolatey.content -Force
+        & $global:destination$global:chocolateyinstall
+        Remove-Item -Path $global:destination$global:chocolateyinstall -Force
+
+        "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+        Write-Host "Chocolatey already installed"
+    }
+
+    if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
+        "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    } else {
+        "[$(TS)] AfterFORMAT [ERR] Can't install chocolatey" | Out-File -FilePath $destination\AfterFORMAT.log -Append
+    }
+})
 
 
 
