@@ -216,7 +216,8 @@ $apply.Add_click({
         if ($global:install_7zip -eq 1){
             $software = "7-Zip"
 
-            if($installed -contains $software) {
+            #if($installed -contains $software) {
+            if($installed.Contains('world')){
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
                 winget install -e 7zip.7zip | Out-Host
                 if($?) { Write-Host "Installed 7zip"}
