@@ -85,7 +85,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 #SCRIPT PATH & NAME
 $global:destination = $MyInvocation.MyCommand.Path
-Write-Host "Full path   :" $destination
+Write-Host "Full path1  :" $destination
 if ( $global:destination -eq $null ) {
     Write-Host "Zmiana nr 1"
     $global:destination = 'C:\AfterFORMAT.ps1'
@@ -93,7 +93,7 @@ if ( $global:destination -eq $null ) {
 Write-Host "Full path   :" $destination
 
 $global:scriptname = $MyInvocation.MyCommand.Name
-Write-Host "Script name :" $scriptname
+Write-Host "Script name1:" $scriptname
 if ( $global:scriptname -eq $null ) {
     Write-Host "Zmiana nr 2"
     $global:scriptname = 'AfterFORMAT.ps1'
@@ -101,7 +101,7 @@ if ( $global:scriptname -eq $null ) {
 Write-Host "Script name :" $scriptname
 
 $global:destination = $global:destination.Replace($scriptname,'')
-Write-Host "Run from    :" $destination
+Write-Host "Run from1   :" $destination
 if ( $global:destination -eq $null ) {
     Write-Host "Zmiana nr 3"
     $global:destination = 'C:\'
