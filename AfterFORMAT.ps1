@@ -28,6 +28,7 @@
         <Button Name="open_ninitev1" Content="v1" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Height="25" Width="25" FontWeight="Bold"/>
         <Button Name="open_ninitev2" Content="v2" HorizontalAlignment="Left" Margin="450,10,0,0" VerticalAlignment="Top" Height="25" Width="25" FontWeight="Bold"/>
         <Button Name="install_gl" Content="Games Launchers" HorizontalAlignment="Left" Margin="415,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
+        <Button Name="updateallwinget" Content="Update all Winget" HorizontalAlignment="Left" Margin="590,445,0,0" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold"/>
         
         <CheckBox Name="app_7zip" Content="7-zip" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_adguard" Content="Adguard" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
@@ -62,6 +63,7 @@
         <CheckBox Name="app_adobecc" Content="Adobe CC" HorizontalAlignment="Left" Margin="280,125,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_iCUE" Content="Corsair iCUE" HorizontalAlignment="Left" Margin="280,150,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_sharex" Content="ShareX" HorizontalAlignment="Left" Margin="280,175,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="app_virtualbox" Content="VirtualBox" HorizontalAlignment="Left" Margin="280,202,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
 
         <TextBox Name="set_hostname" HorizontalAlignment="Left" Height="26" Margin="477,150,0,0" TextWrapping="Wrap" Text="hostname" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Bold" TextAlignment="Center" MaxLength="20"/>
 
@@ -155,6 +157,7 @@ $global:install_touchportal = 0
 $global:install_adobecc = 0
 $global:install_iCUE = 0
 $global:install_sharex = 0
+$global:install_virtualbox = 0
 
 
 
@@ -328,7 +331,144 @@ $open_ninitev2.Add_click({
 
 
 $install_gl.Add_click({
-    #TO DO INSTALL game launchers
+"[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+
+
+
+    Write-Host "`nInstallation in progress..."
+    "[$(TS)] AfterFORMAT [INFO] Installation in progress..." | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+
+
+
+    if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
+        Write-Host "You have the Winget installed"
+
+            $software = "Bethesda.net Launcher"
+            if ($global:installed -match $software) {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                winget install -e Bethesda.Launcher | Out-Host
+                if($?) { Write-Host "Installed '$software'"}
+            }
+
+            $software = "EA app"
+            if ($global:installed -match $software) {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                winget install -e ElectronicArts.EADesktop | Out-Host
+                if($?) { Write-Host "Installed '$software'"}
+            }
+
+            $software = "Epic Games Launcher"
+            if ($global:installed -match $software) {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                winget install -e EpicGames.EpicGamesLauncher | Out-Host
+                if($?) { Write-Host "Installed '$software'"}
+            }
+
+            $software = "GOG GALAXY"
+            if ($global:installed -match $software) {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                winget install -e GOG.Galaxy | Out-Host
+                if($?) { Write-Host "Installed '$software'"}
+            }
+
+            $software = "Minecraft Launcher"
+            if ($global:installed -match $software) {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                winget install -e Mojang.MinecraftLauncher | Out-Host
+                if($?) { Write-Host "Installed '$software'"}
+            }
+
+            $software = "Steam"
+            if ($global:installed -match $software) {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                winget install -e Valve.Steam | Out-Host
+                if($?) { Write-Host "Installed '$software'"}
+            }
+
+            $software = "Ubisoft Connect"
+            if ($global:installed -match $software) {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                winget install -e Ubisoft.Connect | Out-Host
+                if($?) { Write-Host "Installed '$software'"}
+            }
+
+            $software = "Wargaming.net Game Center"
+            if ($global:installed -match $software) {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                winget install -e Wargaming.GameCenter | Out-Host
+                if($?) { Write-Host "Installed '$software'"}
+            }
+
+    }
+    if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
+        Write-Host "You have the Chocolatey installed" 
+               
+            $software = "Battle.net"
+            if ($global:installed -match $software) {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                choco install battle.net | Out-Host
+                if($?) { Write-Host "Installed '$software'"}
+            }
+               
+            $software = "Origin"
+            if ($global:installed -match $software) {
+	            Write-Host "'$software' is installed "
+                "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                choco install origin | Out-Host
+                if($?) { Write-Host "Installed '$software'"}
+            }
+
+    }
+})
+
+
+
+$updateallwinget.Add_click({
+"[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+
+
+    Write-Host "`nInstallation in progress..."
+    "[$(TS)] AfterFORMAT [INFO] Update in progress..." | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+
+
+
+    if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
+        Write-Host "You have the Winget installed"
+        winget upgrade --all | Out-Host
+    }
 })
 
 
@@ -621,6 +761,16 @@ $app_sharex.Add_Unchecked({
     "[$(TS)] AfterFORMAT [INFO] ShareX iCUE program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     })
 
+$app_virtualbox.Add_Checked({
+    $global:install_virtualbox = 1
+    "[$(TS)] AfterFORMAT [INFO] The program VirtualBox was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    })
+$app_virtualbox.Add_Unchecked({
+    app_virtualbox = 0
+    "[$(TS)] AfterFORMAT [INFO] VirtualBox program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    })
+
+
 #$global:install_7zip
 #$global:install_adguard
 #$global:install_audacity
@@ -651,6 +801,8 @@ $app_sharex.Add_Unchecked({
 #$global:install_adobecc
 #$global:install_iCUE
 #$global:install_sharex
+#$global:install_virtualbox
+
 
 #$global:autologon
 #$global:uac
@@ -659,16 +811,13 @@ $app_sharex.Add_Unchecked({
 
 #APPLY AND INSTALL
 $apply.Add_click({
-
-
+"[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
 
 
     Write-Host "`nInstallation in progress..."
     "[$(TS)] AfterFORMAT [INFO] Installation in progress..." | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-
-    "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
 
 
@@ -681,74 +830,495 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 $software = "7-Zip"
                 if ($global:installed -match $software) {
 	                Write-Host "'$software' is installed "
-                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
-                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $destination\AfterFORMAT.log -Append
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                     winget install -e 7zip.7zip | Out-Host
-                    if($?) { Write-Host "Installed 7zip"}
+                    if($?) { Write-Host "Installed '$software'"}
                 }
 
 
 
             }
             if ($global:install_adguard -eq 1) {
+
+
+
+                $software = "AdGuard"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e AdGuard.AdGuard | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_audacity -eq 1) {
+
+
+
+                $software = "Audacity"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Audacity.Audacity | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_discord -eq 1) {
+
+
+
+                $software = "Discord"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Discord.Discord | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_displaycal -eq 1) {
+
+
+
+                $software = "DisplayCAL"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e FlorianHoech.DisplayCAL | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_googlechrome -eq 1) {
+
+
+
+                $software = "Google Chrome"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Google.Chrome | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_hashtab -eq 1) {
+
+
+
+                $software = "HashTab"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Implbits.HashTab | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_keepass -eq 1) {
+
+
+
+                $software = "KeePass"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e DominikReichl.KeePass | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_klitecodecpack -eq 1) {
+
+
+
+                $software = "K-Lite"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e CodecGuide.K-LiteCodecPack.Full | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_logitechghub -eq 1) {
+
+
+
+                $software = "Logitech G HUB"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Logitech.GHUB | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_mediainfo -eq 1) {
-            }
-            if ($global:install_msiafterburner -eq 1) {
+
+
+
+                $software = "MediaInfo"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e MediaArea.MediaInfo.GUI | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_notepadPP -eq 1) {
+
+
+
+                $software = "Notepad++"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Notepad++.Notepad++ | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_obsstudio -eq 1) {
+
+
+
+                $software = "OBS Studio"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e OBSProject.OBSStudio | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_putty -eq 1) {
+
+
+
+                $software = "PuTTY"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e PuTTY.PuTTY | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_red -eq 1) {
+
+
+
+                $software = "Remove Empty Directories"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e JonasJohn.RemoveEmptyDirectories | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_samsungdex -eq 1) {
+
+
+
+                $software = "Samsung DeX"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Samsung.DeX | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_samsungflow -eq 1) {
+
+
+                
+                $software = "Samsung Flow"
+                if ($global:installed -match $software) { 
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    [void] [System.Windows.MessageBox]::Show( "Sorry... I don't have this package", "Script completed", "OK", "Information" )
+                    "[$(TS)] AfterFORMAT [INFO] Sorry... I don't have this package '$software'" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    Start https://www.microsoft.com/en-us/p/samsung-flow/9nblggh5gb0m
+                }
+
+
+
             }
             if ($global:install_soundswitch -eq 1) {
+
+
+
+                $software = "SoundSwitch"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e AntoineAflalo.SoundSwitch | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_spotify -eq 1) {
+
+
+
+                $software = "Spotify"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Spotify.Spotify | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_synctrayzor -eq 1) {
+
+
+
+                $software = "SyncTrayzor"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e SyncTrayzor.SyncTrayzor | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_teamspeak3 -eq 1) {
+
+
+
+                $software = "TeamSpeak 3 Client"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e TeamSpeakSystems.TeamSpeakClient | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_teamviewer -eq 1) {
+
+
+
+                $software = "TeamViewer"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e TeamViewer.TeamViewer | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_totalcommander -eq 1) {
+
+
+
+                $software = "Total Commander"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Ghisler.TotalCommander | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_VLC -eq 1) {
+
+
+
+                $software = "VLC media player"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e VideoLAN.VLC | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_winscp -eq 1) {
+
+
+
+                $software = "WinSCP"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e WinSCP.WinSCP | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_touchportal -eq 1) {
-            }
-            if ($global:install_adobecc -eq 1) {
+
+
+
+                $software = "Touch Portal"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Rils.TouchPortal | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_iCUE -eq 1) {
+
+
+
+                $software = "CORSAIR iCUE 4"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Corsair.iCUE.4 | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
             if ($global:install_sharex -eq 1) {
+
+
+
+                $software = "ShareX"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e ShareX.ShareX | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
             }
+            if ($global:install_virtualbox -eq 1) {
+
+
+
+                $software = "Oracle VM VirtualBox"
+                if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    winget install -e Oracle.VirtualBox | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+                }
+
+
+
+            }
+
+
+
     } else {
         Write-Host "Please install first Winget"
     }
@@ -757,6 +1327,47 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
     if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
         Write-Host "You have the Chocolatey installed"
+
+
+
+        
+        if ($global:install_msiafterburner -eq 1) {
+
+
+
+            $software = "MSI Afterburner"
+            if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    choco install msiafterburner | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+            }
+
+
+
+        }
+        if ($global:install_adobecc -eq 1) {
+
+
+
+            $software = "Adobe Creative Cloud"
+            if ($global:installed -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    choco install adobe-creative-cloud | Out-Host
+                    if($?) { Write-Host "Installed '$software'"}
+            }
+
+
+
+        }
+        
+
+
     } else {
         Write-Host "Please install first Chocolatey"
     }
