@@ -460,6 +460,9 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
             }
 
     }
+
+    Write-Host "The process is complete"
+
 })
 
 
@@ -1397,6 +1400,10 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
         Write-Host "Change UAC settings to 5"
         "[$(TS)] AfterFORMAT [INFO] Change UAC settings to 0" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     }
+
+
+
+    Write-Host "The process is complete"
 })
 
 
