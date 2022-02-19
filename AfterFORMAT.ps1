@@ -96,7 +96,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 Clear-Host
 #SCRIPT PATH & NAME
-Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.14`n"
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.15`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -191,6 +191,13 @@ $global:set_hostname.text  =  $global:newhostname
 
 
 
+#C:\ProgramData\chocolatey\logs
+#Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
+Rename-Item C:\ProgramData\chocolatey\logs\chocolatey.log -NewName C:\ProgramData\chocolatey\logs\chocolatey_$(TS).log
+#Remove-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -Force
+Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
+
+
 #INSTALL WINGET
 $install_winget.Add_click({
     "[$(TS)] AfterFORMAT [INFO] Checking winget " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
@@ -214,6 +221,15 @@ $install_winget.Add_click({
     } else {
         "[$(TS)] AfterFORMAT [ERR] Can't install Winget" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     }
+
+
+
+    $logs = Get-Content %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log
+    Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+    #Remove-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -Force
+    Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
+
+
 })
 
 
@@ -261,6 +277,15 @@ $install_chocolatey.Add_click({
     } else {
         "[$(TS)] AfterFORMAT [ERR] Can't install chocolatey" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     }
+
+
+    $logs = Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log
+    Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+    #Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
+    Rename-Item C:\ProgramData\chocolatey\logs\chocolatey.log -NewName C:\ProgramData\chocolatey\logs\chocolatey_$(TS).log
+
+
+
 })
 
 
@@ -435,6 +460,13 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 if($?) { Write-Host "Installed '$software'"}
             }
 
+
+
+            $logs = Get-Content %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log
+            Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+            #Remove-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -Force
+            Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
+
     }
     if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
         Write-Host "You have the Chocolatey installed" 
@@ -459,7 +491,16 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 if($?) { Write-Host "Installed '$software'"}
             }
 
+
+
+            $logs = Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log
+            Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+            #Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
+            Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
+
     }
+
+
 
     Write-Host "The process is complete"
 
@@ -1334,6 +1375,13 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
 
+            $logs = Get-Content %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log
+            Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+            #Remove-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -Force
+            Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
+
+
+
     } else {
         Write-Host "Please install first Winget"
     }
@@ -1380,7 +1428,14 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
         }
-        
+
+
+
+    $logs = Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log
+    Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+    #Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
+    Rename-Item C:\ProgramData\chocolatey\logs\chocolatey.log -NewName C:\ProgramData\chocolatey\logs\chocolatey_$(TS).log
+
 
 
     } else {
