@@ -12,7 +12,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-        Title="AfterFORMAT" Height="525" Width="750" MinWidth="750" MinHeight="500" MaxWidth="750" MaxHeight="525">
+        Title="AfterFORMAT 0.4.1.18" Height="525" Width="750" MinWidth="750" MinHeight="525" MaxWidth="750" MaxHeight="525">
     <Grid Background="#FF7D7D7D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         
         <Button Name="close_window" Content="Close" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
@@ -96,7 +96,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 Clear-Host
 #SCRIPT PATH & NAME
-Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.17`n"
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.18`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -194,6 +194,7 @@ $global:set_hostname.text  =  $global:newhostname
 
 
 
+$global:cred = Get-Credential -UserName $env:UserName -Message ' '
 #C:\ProgramData\chocolatey\logs
 #Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
 #Rename-Item C:\ProgramData\chocolatey\logs\chocolatey.log -NewName C:\ProgramData\chocolatey\logs\chocolatey_$(TS).log
@@ -1211,7 +1212,8 @@ $global:installedchoco = choco list -localonly
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify | Out-Host
+                    Start-Process Powershell.exe -Credential $global:cred 'winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify' #-ArgumentList '-noprofile -command &{Start-Process Powershell -verb runas}'
+                    #winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
