@@ -28,7 +28,7 @@
         <Button Name="open_ninitev1" Content="v1" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Height="25" Width="25" FontWeight="Bold"/>
         <Button Name="open_ninitev2" Content="v2" HorizontalAlignment="Left" Margin="450,10,0,0" VerticalAlignment="Top" Height="25" Width="25" FontWeight="Bold"/>
         <Button Name="install_gl" Content="Games Launchers" HorizontalAlignment="Left" Margin="415,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
-        <Button Name="updateallwinget" Content="Update all Winget" HorizontalAlignment="Left" Margin="590,445,0,0" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold"/>
+        <Button Name="updateallwinget" Content="Update all apps" HorizontalAlignment="Left" Margin="590,445,0,0" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold"/>
         
         <CheckBox Name="app_7zip" Content="7-zip" HorizontalAlignment="Left" Margin="10,100,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_adguard" Content="Adguard" HorizontalAlignment="Left" Margin="10,125,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
@@ -96,7 +96,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 Clear-Host
 #SCRIPT PATH & NAME
-Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.16`n"
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.17`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -372,7 +372,10 @@ $install_gl.Add_click({
 "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
-
+$global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+$global:installedwinget = Winget list
+$global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+$global:installedchoco = choco list -localonly
 
 
     Write-Host "`nInstallation in progress..."
@@ -384,7 +387,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
         Write-Host "You have the Winget installed"
 
             $software = "Bethesda.net Launcher"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -394,7 +397,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
             }
 
             $software = "EA app"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -404,7 +407,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
             }
 
             $software = "Epic Games Launcher"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -414,7 +417,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
             }
 
             $software = "GOG GALAXY"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -424,7 +427,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
             }
 
             $software = "Minecraft Launcher"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -434,7 +437,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
             }
 
             $software = "Steam"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -444,7 +447,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
             }
 
             $software = "Ubisoft Connect"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -454,7 +457,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
             }
 
             $software = "Wargaming.net Game Center"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -475,7 +478,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
         Write-Host "You have the Chocolatey installed" 
                
             $software = "Battle.net"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedchoco -match 'battle.net') {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -485,7 +488,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
             }
                
             $software = "Origin"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedchoco -match 'origin') {
 	            Write-Host "'$software' is installed "
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -505,7 +508,9 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
 
-    Write-Host "The process is complete"
+    Write-Host "FINISH task"
+    Write-Host "`nLogs choco : C:\ProgramData\chocolatey\logs\" 
+    Write-Host "`nLogs winget: %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\`n" 
 
 })
 
@@ -525,6 +530,10 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
     if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
         Write-Host "You have the Winget installed"
         winget upgrade --all | Out-Host
+    }
+    if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
+        Write-Host "You have the Chocolatey installed"
+        choco upgrade all | Out-Host
     }
 })
 
@@ -871,6 +880,10 @@ $apply.Add_click({
 "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+$global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+$global:installedwinget = Winget list
+$global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+$global:installedchoco = choco list -localonly
 
 
     Write-Host "`nInstallation in progress..."
@@ -887,7 +900,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "7-Zip"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -904,7 +917,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "AdGuard"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -921,7 +934,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Audacity"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -938,7 +951,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Discord"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -955,7 +968,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "DisplayCAL"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -972,7 +985,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Google Chrome"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -989,7 +1002,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "HashTab"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1006,7 +1019,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "KeePass"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1023,7 +1036,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "K-Lite"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1040,7 +1053,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Logitech G HUB"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1057,7 +1070,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "MediaInfo"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1074,7 +1087,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Notepad"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1091,7 +1104,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "OBS Studio"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1108,7 +1121,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "PuTTY"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1125,7 +1138,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Remove Empty Directories"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1142,7 +1155,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Samsung DeX"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1159,7 +1172,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
                 
                 $software = "Samsung Flow"
-                if ($global:installed -match $software) { 
+                if ($global:installed -match $software -or $global:installedwinget -match $software) { 
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1176,7 +1189,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "SoundSwitch"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1193,7 +1206,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Spotify"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1210,7 +1223,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "SyncTrayzor"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1227,7 +1240,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "TeamSpeak 3 Client"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1244,7 +1257,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "TeamViewer"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1261,7 +1274,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Total Commander"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1278,7 +1291,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "VLC media player"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1295,7 +1308,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "WinSCP"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1312,7 +1325,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Touch Portal"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1329,7 +1342,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "CORSAIR iCUE 4"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1346,7 +1359,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "ShareX"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1363,7 +1376,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
                 $software = "Oracle VM VirtualBox"
-                if ($global:installed -match $software) {
+                if ($global:installed -match $software -or $global:installedwinget -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
@@ -1402,7 +1415,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
             $software = "MSI Afterburner"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedchoco -match 'msiafterburner') {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -1419,7 +1432,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
             $software = "Adobe Creative Cloud"
-            if ($global:installed -match $software) {
+            if ($global:installed -match $software -or $global:installedchoco -match 'adobe-creative-cloud') {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
@@ -1463,7 +1476,9 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
 
-    Write-Host "The process is complete"
+    Write-Host "FINISH task"
+    Write-Host "`nLogs choco : C:\ProgramData\chocolatey\logs\" 
+    Write-Host "`nLogs winget: %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\`n" 
 })
 
 
