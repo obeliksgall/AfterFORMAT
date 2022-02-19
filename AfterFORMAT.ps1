@@ -445,7 +445,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                choco install battle.net -y -a | Out-Host
+                choco -y install battle.net | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
                
@@ -455,7 +455,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                choco install origin -y -a | Out-Host
+                choco -y install origin | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -1356,7 +1356,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    choco install msiafterburner -y -a | Out-Host
+                    choco -y install msiafterburner | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -1373,7 +1373,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    choco install adobe-creative-cloud -y -a | Out-Host
+                    choco -y install adobe-creative-cloud | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
             }
 
