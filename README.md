@@ -1,11 +1,15 @@
 # AfterFORMAT
-Script that saves me time after reinstalling Windows.
+Script written in Powershell with GUI for faster installation of programs after Windows installation.
+Uses:
+- Winget
+- Chocolatey
+- Links to application pages that do not support the above
+- Windows registry entries
 
-The script uses WinGet and Chocolatey to download and install the packages I use.
-If there is something missing (id packages do not exist in Winet or Chocolatey), you will be redirected to the page to download the installation file
+![image](https://user-images.githubusercontent.com/23260174/154798186-a205e77c-cb33-4e4e-abca-68892d02b17d.png)
 
 
-Paste this command into Powershell (admin):
+# Paste this command into Powershell (admin):
 
 iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/obeliksgall/AfterFORMAT/main/AfterFORMAT.ps1'))
 
@@ -13,58 +17,12 @@ Or
 
 iwr -useb https://raw.githubusercontent.com/obeliksgall/AfterFORMAT/main/AfterFORMAT.ps1 | iex
 
-![image](https://user-images.githubusercontent.com/23260174/154544172-51689d39-2fd9-4c6d-8e3c-432d707b63ad.png)
 
-
-# My Apps
-app_7zip
-
-app_adguard
-
-app_audacity
-
-app_discord
-
-app_displaycal
-
-app_googlechrome
-
-app_hashtab
-
-app_keepass
-
-app_klitecodecpack
-
-app_logitechghub
-
-app_mediainfo
-
-app_msiafterburner
-
-app_notepadPP
-
-app_obsstudio
-
-app_putty
-
-app_red
-
-app_samsungdex
-
-app_samsungflow
-
-app_soundswitch
-
-app_spotify
-
-app_synctrayzor
-
-app_teamspeak3
-
-app_teamviewer
-
-app_totalcommander
-
-app_VLC
-
-app_winscp
+# Application list (for version 0.4.1)
+7-Zip;  AdGuard;  Audacity;  Battle.net;  Bethesda.net Launcher;  Discord;  DisplayCAL;  EA app;  
+Epic Games Launcher;  GOG GALAXY;  Google Chrome;  HashTab;  KeePass;  K-Lite Codec Pack;  
+Logitech G HUB;  MediaInfo;  Minecraft Launcher;  MSI Afterburner;  Notepad++;  OBS Studio;  
+Oracle VM VirtualBox;  Origin;  PuTTY; Remove Empty Directories;  Samsung DeX;  SoundSwitch;  
+Spotify;  Steam;  SyncTrayzor;  TeamSpeak 3;  TeamViewer;  Total Commander;  Ubisoft Connect;  
+VLC media player;  Wargaming.net Game Center;  WinSCP;  Adobe Creative Cloud;  Corsair iCUE 4;  
+ShareX;  Touch Portal;  
