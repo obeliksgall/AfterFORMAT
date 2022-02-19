@@ -234,16 +234,26 @@ $install_chocolatey.Add_click({
         Set-ExecutionPolicy Unrestricted
         "[$(TS)] AfterFORMAT [INFO] Change ExecutionPolicy to Unrestricted" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
-        New-Item -Path $global:destination -Name $global:chocolateyinstall -ItemType File -Value $global:chocolatey.content -Force
-        & $global:destination$global:chocolateyinstall
-        & $global:destination$global:chocolateyinstall | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-        Remove-Item -Path $global:destination$global:chocolateyinstall -Force
+        $chocolateyy = Invoke-WebRequest -Uri $urlChocolatey -UserAgent 'Trident' -UseBasicParsing
+        #New-Item -Path $global:destination -Name $global:chocolateyinstall -ItemType File -Value $global:chocolatey.content -Force
+        New-Item -Path 'C:\' -Name 'AfterFORMATinstallchoco.ps1' -ItemType File -Value $chocolateyy.Content -Force
+        Start-Sleep 5
+        #& $global:destination$global:chocolateyinstall
+        #& $global:destination$global:chocolateyinstall | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        #Remove-Item -Path $global:destination$global:chocolateyinstall -Force
+        & 'C:\AfterFORMATinstallchoco.ps1'
+        & 'C:\AfterFORMATinstallchoco.ps1' | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        Start-Sleep 5
+        Remove-Item -Path 'C:\AfterFORMATinstallchoco.ps1' -Force
 
         Set-ExecutionPolicy $ExecutionPolicy
         "[$(TS)] AfterFORMAT [INFO] Change ExecutionPolicy to " + $ExecutionPolicy | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
         "[$(TS)] AfterFORMAT [INFO] Chocolatey already installed" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
         Write-Host "Chocolatey already installed"
+
+
+
     }
 
     if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
