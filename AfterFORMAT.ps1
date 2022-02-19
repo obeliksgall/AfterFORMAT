@@ -12,7 +12,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-        Title="AfterFORMAT 0.4.1.19" Height="525" Width="750" MinWidth="750" MinHeight="525" MaxWidth="750" MaxHeight="525">
+        Title="AfterFORMAT 0.4.1.20" Height="525" Width="750" MinWidth="750" MinHeight="525" MaxWidth="750" MaxHeight="525">
     <Grid Background="#FF7D7D7D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         
         <Button Name="close_window" Content="Close" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
@@ -22,7 +22,7 @@
         <Button Name="get_redist" Content="Get Visual C++" HorizontalAlignment="Left" Margin="10,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="get_directx" Content="Get DirectX" HorizontalAlignment="Left" Margin="145,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
         <Button Name="enable_nfs" Content="Enable NFS" HorizontalAlignment="Left" Margin="280,45,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
-        <Button Name="apply_hostname" Content="Apply hostname" HorizontalAlignment="Left" Margin="514,183,0,0" VerticalAlignment="Top" Height="24" Width="126" FontWeight="Bold"/>
+        <Button Name="apply_hostname" Content="Apply hostname" HorizontalAlignment="Left" Margin="514,208,0,0" VerticalAlignment="Top" Height="24" Width="126" FontWeight="Bold"/>
         <Button Name="apply" Content="Apply" HorizontalAlignment="Center" Margin="0,445,0,0" VerticalAlignment="Top" Width="125" Height="25" FontWeight="Bold"/>
 
         <Button Name="open_ninitev1" Content="v1" HorizontalAlignment="Left" Margin="415,10,0,0" VerticalAlignment="Top" Height="25" Width="25" FontWeight="Bold"/>
@@ -64,8 +64,9 @@
         <CheckBox Name="app_iCUE" Content="Corsair iCUE" HorizontalAlignment="Left" Margin="280,150,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_sharex" Content="ShareX" HorizontalAlignment="Left" Margin="280,175,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
         <CheckBox Name="app_virtualbox" Content="VirtualBox" HorizontalAlignment="Left" Margin="280,202,0,0" VerticalAlignment="Top" Width="125" Height="15" FontSize="13" FontWeight="Normal"/>
+        <CheckBox Name="change_hibernate" Content="Hibernate off" HorizontalAlignment="Left" Margin="502,150,0,0" VerticalAlignment="Top" Width="150" Height="16" FontSize="13" FontWeight="Normal"/>
 
-        <TextBox Name="set_hostname" HorizontalAlignment="Left" Height="26" Margin="477,150,0,0" TextWrapping="Wrap" Text="hostname" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Bold" TextAlignment="Center" MaxLength="20"/>
+        <TextBox Name="set_hostname" HorizontalAlignment="Left" Height="26" Margin="477,174,0,0" TextWrapping="Wrap" Text="Type Here hostname" VerticalAlignment="Top" Width="200" FontSize="14" FontWeight="Bold" TextAlignment="Center" MaxLength="20"/>
 
         <Separator Height="10" Margin="10,425,10,0" VerticalAlignment="Top" Background="White"/>
         <Separator Height="10" Margin="10,80,10,0" VerticalAlignment="Top" Background="White"/>
@@ -96,7 +97,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 Clear-Host
 #SCRIPT PATH & NAME
-Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.19`n"
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.20`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -166,6 +167,7 @@ $global:install_virtualbox = 0
 
 $global:autologon = 0
 $global:uac = 0
+$global:hibernate = 0
 $global:set_hostname.text = $global:hostnameV
 
 
@@ -378,8 +380,8 @@ if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
     $global:installedwinget = Winget list
 }
 if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
-$global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-$global:installedchoco = choco list -localonly
+    $global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:installedchoco = choco list -localonly
 }
 
 
@@ -391,6 +393,8 @@ $global:installedchoco = choco list -localonly
 
     if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
         Write-Host "You have the Winget installed"
+        #$global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        #$global:installedwinget = Winget list
 
             $software = "Bethesda.net Launcher"
             if ($global:installed -match $software -or $global:installedwinget -match $software) {
@@ -482,6 +486,8 @@ $global:installedchoco = choco list -localonly
     }
     if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
         Write-Host "You have the Chocolatey installed" 
+        #$global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        #$global:installedchoco = choco list -localonly
                
             $software = "Battle.net"
             if ($global:installed -match $software -or $global:installedchoco -match 'battle.net') {
@@ -838,8 +844,17 @@ $app_virtualbox.Add_Checked({
     "[$(TS)] AfterFORMAT [INFO] The program VirtualBox was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     })
 $app_virtualbox.Add_Unchecked({
-    app_virtualbox = 0
+    $global:app_virtualbox = 0
     "[$(TS)] AfterFORMAT [INFO] VirtualBox program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    })
+
+$change_hibernate.Add_Checked({
+    $global:hibernate = 1
+    "[$(TS)] AfterFORMAT [INFO] The auto login option is enabled" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    })
+$change_hibernate.Add_Unchecked({
+    $global:hibernate = 0
+    "[$(TS)] AfterFORMAT [INFO] Automatic login has been enabled" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     })
 
 
@@ -903,8 +918,9 @@ $global:installedchoco = choco list -localonly
 
     if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
         Write-Host "You have the Winget installed"
-        $wingetapp = winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-        Write-Host $wingetapp
+        #$wingetapp = winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        #$wingetapp = winget list
+        #Write-Host $wingetapp
             if ($global:install_7zip -eq 1) {
 
 
@@ -1417,6 +1433,8 @@ $global:installedchoco = choco list -localonly
 
     if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
         Write-Host "You have the Chocolatey installed"
+        #$global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        #$global:installedchoco = choco list -localonly
 
 
 
@@ -1482,6 +1500,14 @@ $global:installedchoco = choco list -localonly
     if ($global:uac -eq 1) {
         Set-ItemProperty -Path REGISTRY::HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Policies\System -Name ConsentPromptBehaviorAdmin -Value 0 #OR 5
         Write-Host "Change UAC settings to 5"
+        "[$(TS)] AfterFORMAT [INFO] Change UAC settings to 0" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    }
+
+
+
+    if ($global:hibernate -eq 1) {
+        cmd.exe /c 'powercfg.exe /hibernate off'
+        Write-Host "Hibernate off"
         "[$(TS)] AfterFORMAT [INFO] Change UAC settings to 0" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     }
 
