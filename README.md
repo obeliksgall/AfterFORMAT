@@ -15,11 +15,11 @@ Uses:
 
 # Paste this command into Powershell (admin):
 
-iex ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/obeliksgall/AfterFORMAT/main/AfterFORMAT.ps1'))
+iex ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/obeliksgall/AfterFORMAT/main/AfterFORMAT.ps1"))
 
 Or
 
-iwr -useb https://raw.githubusercontent.com/obeliksgall/AfterFORMAT/main/AfterFORMAT.ps1 | iex
+iwr -useb "https://raw.githubusercontent.com/obeliksgall/AfterFORMAT/main/AfterFORMAT.ps1" | iex
 
 
 # Application list (for version 0.4.1)
