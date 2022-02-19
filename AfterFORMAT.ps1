@@ -96,7 +96,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 Clear-Host
 #SCRIPT PATH & NAME
-Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.11`n"
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.12`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -1356,7 +1356,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    choco install msiafterburner --yes --force | Out-Host
+                    choco install msiafterburner --yes --force | Out-Host | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                     if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -1373,7 +1373,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    choco install adobe-creative-cloud --yes --force | Out-Host
+                    choco install adobe-creative-cloud --yes --force --ignore-checksums | Out-Host | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                     if($?) { Write-Host "Installed '$software'"}
             }
 
