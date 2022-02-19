@@ -96,7 +96,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 Clear-Host
 #SCRIPT PATH & NAME
-Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.13`n"
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.14`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -113,7 +113,7 @@ if ( $global:destination -eq $null ) {
     $global:destination = 'C:\'
 }
 Write-Host "Path    : " $global:destination
-
+Write-Host "User    : " $env:UserName
 
 
 #LOGS
