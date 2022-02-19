@@ -96,7 +96,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 Clear-Host
 #SCRIPT PATH & NAME
-Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.15`n"
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.16`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -114,6 +114,9 @@ if ( $global:destination -eq $null ) {
 }
 Write-Host "Path    : " $global:destination
 Write-Host "User    : " $env:UserName
+Write-Host "`nLogs choco : C:\ProgramData\chocolatey\logs\" 
+Write-Host "`nLogs winget: %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\`n" 
+
 
 
 #LOGS
@@ -193,9 +196,9 @@ $global:set_hostname.text  =  $global:newhostname
 
 #C:\ProgramData\chocolatey\logs
 #Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
-Rename-Item C:\ProgramData\chocolatey\logs\chocolatey.log -NewName C:\ProgramData\chocolatey\logs\chocolatey_$(TS).log
+#Rename-Item C:\ProgramData\chocolatey\logs\chocolatey.log -NewName C:\ProgramData\chocolatey\logs\chocolatey_$(TS).log
 #Remove-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -Force
-Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
+#Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
 
 
 #INSTALL WINGET
@@ -224,10 +227,10 @@ $install_winget.Add_click({
 
 
 
-    $logs = Get-Content %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log
-    Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+    #$logs = Get-Content %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log
+    #Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
     #Remove-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -Force
-    Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
+    #Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
 
 
 })
@@ -279,10 +282,10 @@ $install_chocolatey.Add_click({
     }
 
 
-    $logs = Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log
-    Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+    #$logs = Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log
+    #Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
     #Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
-    Rename-Item C:\ProgramData\chocolatey\logs\chocolatey.log -NewName C:\ProgramData\chocolatey\logs\chocolatey_$(TS).log
+    #Rename-Item C:\ProgramData\chocolatey\logs\chocolatey.log -NewName C:\ProgramData\chocolatey\logs\chocolatey_$(TS).log
 
 
 
@@ -462,10 +465,10 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
 
-            $logs = Get-Content %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log
-            Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+            #$logs = Get-Content %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log
+            #Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
             #Remove-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -Force
-            Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
+            #Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
 
     }
     if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
@@ -493,10 +496,10 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
 
-            $logs = Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log
-            Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+            #$logs = Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log
+            #Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
             #Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
-            Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
+            #Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
 
     }
 
@@ -1375,10 +1378,10 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
 
-            $logs = Get-Content %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log
-            Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+            #$logs = Get-Content %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log
+            #Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
             #Remove-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -Force
-            Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
+            #Rename-Item %LOCALAPPDATA%\Packages\Microsoft.DesktopAppInstaller_8wekyb3d8bbwe\LocalState\DiagOutputDir\*.log -NewName {$_.name -replace "WinGet-","OLD_WinGet-"} 
 
 
 
@@ -1431,10 +1434,10 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
 
-    $logs = Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log
-    Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
+    #$logs = Get-Content C:\ProgramData\chocolatey\logs\chocolatey.log
+    #Add-Content -Path $global:destination\AfterFORMAT.log -Value $logs
     #Remove-Item C:\ProgramData\chocolatey\logs\*.log -Force
-    Rename-Item C:\ProgramData\chocolatey\logs\chocolatey.log -NewName C:\ProgramData\chocolatey\logs\chocolatey_$(TS).log
+    #Rename-Item C:\ProgramData\chocolatey\logs\chocolatey.log -NewName C:\ProgramData\chocolatey\logs\chocolatey_$(TS).log
 
 
 
