@@ -12,7 +12,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-        Title="AfterFORMAT 0.4.1.18" Height="525" Width="750" MinWidth="750" MinHeight="525" MaxWidth="750" MaxHeight="525">
+        Title="AfterFORMAT 0.4.1.19" Height="525" Width="750" MinWidth="750" MinHeight="525" MaxWidth="750" MaxHeight="525">
     <Grid Background="#FF7D7D7D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         
         <Button Name="close_window" Content="Close" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
@@ -96,7 +96,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 Clear-Host
 #SCRIPT PATH & NAME
-Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.18`n"
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.19`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -373,10 +373,15 @@ $install_gl.Add_click({
 "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
-$global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-$global:installedwinget = Winget list
+if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
+    $global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:installedwinget = Winget list
+}
+if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
 $global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installedchoco = choco list -localonly
+}
+
 
 
     Write-Host "`nInstallation in progress..."
@@ -881,10 +886,14 @@ $apply.Add_click({
 "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
-$global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-$global:installedwinget = Winget list
+if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
+    $global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:installedwinget = Winget list
+}
+if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
 $global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 $global:installedchoco = choco list -localonly
+}
 
 
     Write-Host "`nInstallation in progress..."
