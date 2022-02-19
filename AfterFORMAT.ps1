@@ -361,7 +361,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                winget install -e Bethesda.Launcher | Out-Host
+                winget install -e --silent --accept-source-agreements --accept-package-agreements Bethesda.Launcher | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -371,7 +371,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                winget install -e ElectronicArts.EADesktop | Out-Host
+                winget install -e --silent --accept-source-agreements --accept-package-agreements ElectronicArts.EADesktop | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -381,7 +381,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                winget install -e EpicGames.EpicGamesLauncher | Out-Host
+                winget install -e --silent --accept-source-agreements --accept-package-agreements EpicGames.EpicGamesLauncher | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -391,7 +391,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                winget install -e GOG.Galaxy | Out-Host
+                winget install -e --silent --accept-source-agreements --accept-package-agreements GOG.Galaxy | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -401,7 +401,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                winget install -e Mojang.MinecraftLauncher | Out-Host
+                winget install -e --silent --accept-source-agreements --accept-package-agreements Mojang.MinecraftLauncher | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -411,7 +411,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                winget install -e Valve.Steam | Out-Host
+                winget install -e --silent --accept-source-agreements --accept-package-agreements Valve.Steam | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -421,7 +421,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                winget install -e Ubisoft.Connect | Out-Host
+                winget install -e --silent --accept-source-agreements --accept-package-agreements Ubisoft.Connect | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -431,7 +431,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                winget install -e Wargaming.GameCenter | Out-Host
+                winget install -e --silent --accept-source-agreements --accept-package-agreements Wargaming.GameCenter | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -445,7 +445,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                choco install battle.net | Out-Host
+                choco install battle.net -y | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
                
@@ -455,7 +455,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                 "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                 "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                choco install origin | Out-Host
+                choco install origin -y | Out-Host
                 if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -836,6 +836,8 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
     if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
         Write-Host "You have the Winget installed"
+        $wingetapp = winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        Write-Host $wingetapp
             if ($global:install_7zip -eq 1) {
 
 
@@ -846,7 +848,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e 7zip.7zip | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements 7zip.7zip | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -863,7 +865,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e AdGuard.AdGuard | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements AdGuard.AdGuard | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -880,7 +882,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Audacity.Audacity | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Audacity.Audacity | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -897,7 +899,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Discord.Discord | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Discord.Discord | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -914,7 +916,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e FlorianHoech.DisplayCAL | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements FlorianHoech.DisplayCAL | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -931,7 +933,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Google.Chrome | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Google.Chrome | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -948,7 +950,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Implbits.HashTab | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Implbits.HashTab | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -965,7 +967,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e DominikReichl.KeePass | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements DominikReichl.KeePass | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -982,7 +984,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e CodecGuide.K-LiteCodecPack.Full | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements CodecGuide.K-LiteCodecPack.Full | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -999,7 +1001,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Logitech.GHUB | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Logitech.GHUB | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1016,7 +1018,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e MediaArea.MediaInfo.GUI | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements MediaArea.MediaInfo.GUI | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1033,7 +1035,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Notepad++.Notepad++ | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Notepad++.Notepad++ | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1050,7 +1052,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e OBSProject.OBSStudio | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements OBSProject.OBSStudio | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1067,7 +1069,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e PuTTY.PuTTY | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements PuTTY.PuTTY | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1084,7 +1086,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e JonasJohn.RemoveEmptyDirectories | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements JonasJohn.RemoveEmptyDirectories | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1101,7 +1103,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Samsung.DeX | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Samsung.DeX | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1135,7 +1137,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e AntoineAflalo.SoundSwitch | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements AntoineAflalo.SoundSwitch | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1152,7 +1154,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Spotify.Spotify | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1169,7 +1171,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e SyncTrayzor.SyncTrayzor | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements SyncTrayzor.SyncTrayzor | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1186,7 +1188,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e TeamSpeakSystems.TeamSpeakClient | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements TeamSpeakSystems.TeamSpeakClient | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1203,7 +1205,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e TeamViewer.TeamViewer | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements TeamViewer.TeamViewer | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1220,7 +1222,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Ghisler.TotalCommander | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Ghisler.TotalCommander | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1237,7 +1239,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e VideoLAN.VLC | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements VideoLAN.VLC | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1254,7 +1256,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e WinSCP.WinSCP | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements WinSCP.WinSCP | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1271,7 +1273,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Rils.TouchPortal | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Rils.TouchPortal | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1288,7 +1290,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Corsair.iCUE.4 | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Corsair.iCUE.4 | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1305,7 +1307,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e ShareX.ShareX | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements ShareX.ShareX | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1322,7 +1324,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    winget install -e Oracle.VirtualBox | Out-Host
+                    winget install -e --silent --accept-source-agreements --accept-package-agreements Oracle.VirtualBox | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
 
@@ -1354,7 +1356,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    choco install msiafterburner | Out-Host
+                    choco install msiafterburner -y | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -1371,7 +1373,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    choco install adobe-creative-cloud | Out-Host
+                    choco install adobe-creative-cloud -y | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
             }
 
