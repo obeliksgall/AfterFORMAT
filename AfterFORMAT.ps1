@@ -234,7 +234,7 @@ $install_chocolatey.Add_click({
         "[$(TS)] AfterFORMAT [INFO] Change ExecutionPolicy to Unrestricted" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
         New-Item -Path $global:destination -Name $global:chocolateyinstall -ItemType File -Value $global:chocolatey.content -Force
-        #& $global:destination$global:chocolateyinstall
+        & $global:destination$global:chocolateyinstall
         & $global:destination$global:chocolateyinstall | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
         Remove-Item -Path $global:destination$global:chocolateyinstall -Force
 
@@ -304,7 +304,7 @@ $apply_hostname.Add_click({
         "[$(TS)] AfterFORMAT [ERR] Hostname cannot be the same!" + $set_hostname.text | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     } else {
         $hostname = $global:set_hostname.text
-        #Rename-Computer -NewName $hostname
+        Rename-Computer -NewName $hostname
         Write-Host "Change hostname to " $hostname " please reboot your PC"
         [void] [System.Windows.MessageBox]::Show( "Change hostname to " + $hostname + " please reboot your PC", "Script completed", "OK", "Information" )
         "[$(TS)] AfterFORMAT [INFO] Finish change hostname to " + $hostname + " please reboot your PC" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
