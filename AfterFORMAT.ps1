@@ -1024,7 +1024,7 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 
 
 
-                $software = "Notepad++"
+                $software = "Notepad"
                 if ($global:installed -match $software) {
 	                Write-Host "'$software' is installed "
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
