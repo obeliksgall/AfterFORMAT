@@ -1,3 +1,7 @@
+# TO DO
+
+Checking if the package is installed by Winget and skip if yes
+
 # AfterFORMAT
 Script written in Powershell with GUI for faster installation of programs after Windows installation.
 Uses:
