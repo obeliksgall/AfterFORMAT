@@ -12,7 +12,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-        Title="AfterFORMAT 0.4.1.21" Height="525" Width="750" MinWidth="750" MinHeight="525" MaxWidth="750" MaxHeight="525">
+        Title="AfterFORMAT 0.4.1.22" Height="525" Width="750" MinWidth="750" MinHeight="525" MaxWidth="750" MaxHeight="525">
     <Grid Background="#FF7D7D7D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         
         <Button Name="close_window" Content="Close" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
@@ -97,7 +97,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 Clear-Host
 #SCRIPT PATH & NAME
-Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.21`n"
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.22`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -1055,10 +1055,12 @@ $apply.Add_click({
         Write-Host "You have the Winget installed"
         
     if ($global:win -eq 1) {
+    "[$(TS)] AfterFORMAT [INFO] START Programs on this machine:" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
     $global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     $global:installedwinget = Winget list
+    "[$(TS)] AfterFORMAT [INFO] STOP Programs on this machine:" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
 
 
@@ -1368,24 +1370,24 @@ $apply.Add_click({
 
 
             }
-            if ($global:install_spotify -eq 1) {
+            #if ($global:install_spotify -eq 1) {
 
 
 
-                $software = "Spotify"
-                if ($global:installed -match $software -or $global:installedwinget -match $software) {
-	                Write-Host "'$software' is installed "
-                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                } else {
-                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    Start-Process Powershell.exe -Credential $global:cred -NoNewWindow 'winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify' #-ArgumentList '-noprofile -command &{Start-Process Powershell -verb runas}'
-                    #winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify | Out-Host
-                    if($?) { Write-Host "Installed '$software'"}
-                }
+                #$software = "Spotify"
+                #if ($global:installed -match $software -or $global:installedwinget -match $software) {
+	            #    Write-Host "'$software' is installed "
+                #    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                #} else {
+                #    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                #    Start-Process Powershell.exe -Credential $global:cred -NoNewWindow 'winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify' #-ArgumentList '-noprofile -command &{Start-Process Powershell -verb runas}'
+                #    #winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify | Out-Host
+                #    if($?) { Write-Host "Installed '$software'"}
+                #}
 
 
 
-            }
+            #}
             if ($global:install_synctrayzor -eq 1) {
 
 
@@ -1576,10 +1578,12 @@ $apply.Add_click({
         Write-Host "You have the Chocolatey installed"
         
     if ($global:cho -eq 1) {
+    "[$(TS)] AfterFORMAT [INFO] START Programs on this machine:" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
     $global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
     $global:installedchoco = choco list -localonly
+    "[$(TS)] AfterFORMAT [INFO] STOP Programs on this machine:" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
 
 
         
@@ -1593,7 +1597,7 @@ $apply.Add_click({
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    choco install msiafterburner --yes --force | Out-Host | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    choco install msiafterburner --yes --force | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
             }
 
@@ -1610,7 +1614,24 @@ $apply.Add_click({
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
             } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    choco install adobe-creative-cloud --yes --force | Out-Host | Out-File -FilePath $global:destination\AfterFORMAT.log -Append # --ignore-checksums
+                    choco install adobe-creative-cloud --yes --force | Out-Host # --ignore-checksums
+                    if($?) { Write-Host "Installed '$software'"}
+            }
+
+
+
+        }
+        if ($global:install_spotify -eq 1) {
+
+
+
+            $software = "Spotify"
+            if ($global:installed -match $software -or $global:installedchoco -match $software) {
+	                Write-Host "'$software' is installed "
+                    "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+            } else {
+                    "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+                    choco install spotify --yes --force | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
             }
 
