@@ -12,7 +12,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 
-        Title="AfterFORMAT 0.4.1.20" Height="525" Width="750" MinWidth="750" MinHeight="525" MaxWidth="750" MaxHeight="525">
+        Title="AfterFORMAT 0.4.1.21" Height="525" Width="750" MinWidth="750" MinHeight="525" MaxWidth="750" MaxHeight="525">
     <Grid Background="#FF7D7D7D" VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
         
         <Button Name="close_window" Content="Close" HorizontalAlignment="Left" Margin="590,10,0,0" VerticalAlignment="Top" Height="25" Width="125" FontWeight="Bold"/>
@@ -97,7 +97,7 @@ $xaml.SelectNodes("//*[@Name]") | ForEach-Object {Set-Variable -Name ($_.Name) -
 
 Clear-Host
 #SCRIPT PATH & NAME
-Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.20`n"
+Write-Host "AfterFORMAT by obeliksgall`nhttps://github.com/obeliksgall/AfterFORMAT`nVersion: 0.4.1.21`n"
 $global:destination = $MyInvocation.MyCommand.Path
 if ( $global:destination -eq $null ) {
     $global:destination = "C:\AfterFORMAT.ps1"
@@ -187,8 +187,13 @@ $global:urlNinitev2 = "https://ninite.com/.net4.8-.net5-.net6-.netx5-.netx6-7zip
 
 
 
-$global:newhostname   =  $env:COMPUTERNAME
+$global:newhostname        =  $env:COMPUTERNAME
 $global:set_hostname.text  =  $global:newhostname
+
+
+
+$global:win = 0
+$global:cho = 0
 
 
 
@@ -373,16 +378,16 @@ $open_ninitev2.Add_click({
 
 $install_gl.Add_click({
 "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
-if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
-    $global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-    $global:installedwinget = Winget list
-}
-if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
-    $global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-    $global:installedchoco = choco list -localonly
-}
+#$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+#$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+#if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
+#    $global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+#    $global:installedwinget = Winget list
+#}
+#if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
+#    $global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+#    $global:installedchoco = choco list -localonly
+#}
 
 
 
@@ -393,8 +398,12 @@ if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
 
     if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
         Write-Host "You have the Winget installed"
-        #$global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-        #$global:installedwinget = Winget list
+        $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+        $global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        $global:installedwinget = Winget list
+
+
 
             $software = "Bethesda.net Launcher"
             if ($global:installed -match $software -or $global:installedwinget -match $software) {
@@ -486,8 +495,12 @@ if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
     }
     if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
         Write-Host "You have the Chocolatey installed" 
-        #$global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-        #$global:installedchoco = choco list -localonly
+        $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+        $global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+        $global:installedchoco = choco list -localonly
+
+
                
             $software = "Battle.net"
             if ($global:installed -match $software -or $global:installedchoco -match 'battle.net') {
@@ -530,8 +543,6 @@ if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
 
 $updateallwinget.Add_click({
 "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
 
 
     Write-Host "`nInstallation in progress..."
@@ -554,235 +565,339 @@ $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVer
 $app_7zip.Add_Checked({
     $global:install_7zip = 1
     "[$(TS)] AfterFORMAT [INFO] The program 7-Zip was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_7zip.Add_Unchecked({
     $global:install_7zip = 0
     "[$(TS)] AfterFORMAT [INFO] 7-Zip program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_adguard.Add_Checked({
     $global:install_adguard = 1
     "[$(TS)] AfterFORMAT [INFO] The program Adguard was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_adguard.Add_Unchecked({
     $global:install_adguard = 0
     "[$(TS)] AfterFORMAT [INFO] Adguard program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_audacity.Add_Checked({
     $global:install_audacity = 1
     "[$(TS)] AfterFORMAT [INFO] The program Audacity was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_audacity.Add_Unchecked({
     $global:install_audacity = 0
     "[$(TS)] AfterFORMAT [INFO] Audacity program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_discord.Add_Checked({
     $global:install_discord = 1
     "[$(TS)] AfterFORMAT [INFO] The program Discord was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_discord.Add_Unchecked({
     $global:install_discord = 0
     "[$(TS)] AfterFORMAT [INFO] Discord program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_displaycal.Add_Checked({
     $global:install_displaycal = 1
     "[$(TS)] AfterFORMAT [INFO] The program DisplayCAL was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_displaycal.Add_Unchecked({
     $global:install_displaycal = 0
     "[$(TS)] AfterFORMAT [INFO] DisplayCAL program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_googlechrome.Add_Checked({
     $global:install_googlechrome = 1
     "[$(TS)] AfterFORMAT [INFO] The program Google Chrome was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_googlechrome.Add_Unchecked({
     $global:install_googlechrome = 0
     "[$(TS)] AfterFORMAT [INFO] Google Chrome program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_hashtab.Add_Checked({
     $global:install_hashtab = 1
     "[$(TS)] AfterFORMAT [INFO] The program HashTab was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_hashtab.Add_Unchecked({
     $global:install_hashtab = 0
     "[$(TS)] AfterFORMAT [INFO] HashTab program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_keepass.Add_Checked({
     $global:install_keepass = 1
     "[$(TS)] AfterFORMAT [INFO] The program Keepass was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_keepass.Add_Unchecked({
     $global:install_keepass = 0
     "[$(TS)] AfterFORMAT [INFO] Keepass program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_klitecodecpack.Add_Checked({
     $global:install_klitecodecpack = 1
     "[$(TS)] AfterFORMAT [INFO] The program K-Lite Codec Pack was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_klitecodecpack.Add_Unchecked({
     $global:install_klitecodecpack = 0
     "[$(TS)] AfterFORMAT [INFO] K-Lite Codec Pack program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_logitechghub.Add_Checked({
     $global:install_logitechghub = 1
     "[$(TS)] AfterFORMAT [INFO] The program Logitech G HUB was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_logitechghub.Add_Unchecked({
     $global:install_logitechghub = 0
     "[$(TS)] AfterFORMAT [INFO] Logitech G HUB program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_mediainfo.Add_Checked({
     $global:install_mediainfo = 1
     "[$(TS)] AfterFORMAT [INFO] The program MediaInfo was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_mediainfo.Add_Unchecked({
     $global:install_mediainfo = 0
     "[$(TS)] AfterFORMAT [INFO] MediaInfo program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_msiafterburner.Add_Checked({
     $global:install_msiafterburner = 1
     "[$(TS)] AfterFORMAT [INFO] The program MSI Afterburner was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_msiafterburner.Add_Unchecked({
     $global:install_msiafterburner = 0
     "[$(TS)] AfterFORMAT [INFO] MSI Afterburner program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_notepadPP.Add_Checked({
     $global:install_notepadPP = 1
     "[$(TS)] AfterFORMAT [INFO] The program Notepad++ was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_notepadPP.Add_Unchecked({
     $global:install_notepadPP = 0
     "[$(TS)] AfterFORMAT [INFO] Notepad++ program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_obsstudio.Add_Checked({
     $global:install_obsstudio = 1
     "[$(TS)] AfterFORMAT [INFO] The program OBS Studio was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_obsstudio.Add_Unchecked({
     $global:install_obsstudio = 0
     "[$(TS)] AfterFORMAT [INFO] OBS Studio program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_putty.Add_Checked({
     $global:install_putty = 1
     "[$(TS)] AfterFORMAT [INFO] The program Putty was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_putty.Add_Unchecked({
     $global:install_putty = 0
     "[$(TS)] AfterFORMAT [INFO] Putty program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_red.Add_Checked({
     $global:install_red = 1
     "[$(TS)] AfterFORMAT [INFO] The program Remove Empty Directories was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_red.Add_Unchecked({
     $global:install_red = 0
     "[$(TS)] AfterFORMAT [INFO] Remove Empty Directories program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_samsungdex.Add_Checked({
     $global:install_samsungdex = 1
     "[$(TS)] AfterFORMAT [INFO] The program Samsung DEX was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_samsungdex.Add_Unchecked({
     $global:install_samsungdex = 0
     "[$(TS)] AfterFORMAT [INFO] Samsung DEX program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_samsungflow.Add_Checked({
     $global:install_samsungflow = 1
     "[$(TS)] AfterFORMAT [INFO] The program Samsung Flow was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_samsungflow.Add_Unchecked({
     $global:install_samsungflow = 0
     "[$(TS)] AfterFORMAT [INFO] Samsung Flow program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_soundswitch.Add_Checked({
     $global:install_soundswitch = 1
     "[$(TS)] AfterFORMAT [INFO] The program SoundSwitch was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_soundswitch.Add_Unchecked({
     $global:install_soundswitch = 0
     "[$(TS)] AfterFORMAT [INFO] SoundSwitch program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_spotify.Add_Checked({
     $global:install_spotify = 1
     "[$(TS)] AfterFORMAT [INFO] The program Spotify was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_spotify.Add_Unchecked({
     $global:install_spotify = 0
     "[$(TS)] AfterFORMAT [INFO] Spotify program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_synctrayzor.Add_Checked({
     $global:install_synctrayzor = 1
     "[$(TS)] AfterFORMAT [INFO] The program SyncTrayzor was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_synctrayzor.Add_Unchecked({
     $global:install_synctrayzor = 0
     "[$(TS)] AfterFORMAT [INFO] SyncTrayzor program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_teamspeak3.Add_Checked({
     $global:install_teamspeak3 = 1
     "[$(TS)] AfterFORMAT [INFO] The program TeamSpeak 3 was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_teamspeak3.Add_Unchecked({
     $global:install_teamspeak3 = 0
     "[$(TS)] AfterFORMAT [INFO] TeamSpeak 3 program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_teamviewer.Add_Checked({
     $global:install_teamviewer = 1
     "[$(TS)] AfterFORMAT [INFO] The program TeamViewer was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_teamviewer.Add_Unchecked({
     $global:install_teamviewer = 0
     "[$(TS)] AfterFORMAT [INFO] TeamViewer program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_totalcommander.Add_Checked({
     $global:install_totalcommander = 1
     "[$(TS)] AfterFORMAT [INFO] The program Total Commander was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_totalcommander.Add_Unchecked({
     $global:install_totalcommander = 0
     "[$(TS)] AfterFORMAT [INFO] Total Commander program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_VLC.Add_Checked({
     $global:install_VLC = 1
     "[$(TS)] AfterFORMAT [INFO] The program VLC media player was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_VLC.Add_Unchecked({
     $global:install_VLC = 0
     "[$(TS)] AfterFORMAT [INFO] VLC media player program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_winscp.Add_Checked({
     $global:install_winscp = 1
     "[$(TS)] AfterFORMAT [INFO] The program WinSCP was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_winscp.Add_Unchecked({
     $global:install_winscp = 0
     "[$(TS)] AfterFORMAT [INFO] WinSCP program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $change_autologon.Add_Checked({
@@ -806,46 +921,66 @@ $change_uac.Add_Unchecked({
 $app_touchportal.Add_Checked({
     $global:install_touchportal = 1
     "[$(TS)] AfterFORMAT [INFO] The program Touch Portal was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_touchportal.Add_Unchecked({
     $global:install_touchportal = 0
     "[$(TS)] AfterFORMAT [INFO] Touch Portal program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_adobecc.Add_Checked({
     $global:install_adobecc = 1
     "[$(TS)] AfterFORMAT [INFO] The program Adobe Creative Cloud was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_adobecc.Add_Unchecked({
     $global:install_adobecc = 0
     "[$(TS)] AfterFORMAT [INFO] Adobe Creative Cloud program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_iCUE.Add_Checked({
     $global:install_iCUE = 1
     "[$(TS)] AfterFORMAT [INFO] The program Corsair iCUE was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_iCUE.Add_Unchecked({
     $global:install_iCUE = 0
     "[$(TS)] AfterFORMAT [INFO] Corsair iCUE program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_sharex.Add_Checked({
     $global:install_sharex = 1
     "[$(TS)] AfterFORMAT [INFO] The program ShareX was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_sharex.Add_Unchecked({
     $global:install_sharex = 0
     "[$(TS)] AfterFORMAT [INFO] ShareX iCUE program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $app_virtualbox.Add_Checked({
     $global:install_virtualbox = 1
     "[$(TS)] AfterFORMAT [INFO] The program VirtualBox was selected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 1
+    $global:cho = 1
     })
 $app_virtualbox.Add_Unchecked({
     $global:app_virtualbox = 0
     "[$(TS)] AfterFORMAT [INFO] VirtualBox program has been deselected" | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:win = 0
+    $global:cho = 0
     })
 
 $change_hibernate.Add_Checked({
@@ -899,16 +1034,16 @@ $change_hibernate.Add_Unchecked({
 #APPLY AND INSTALL
 $apply.Add_click({
 "[$(TS)] AfterFORMAT [INFO] Check installed programs: " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
-if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
-    $global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-    $global:installedwinget = Winget list
-}
-if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
-$global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-$global:installedchoco = choco list -localonly
-}
+#$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+#$global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+#if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
+#    $global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+#    $global:installedwinget = Winget list
+#}
+#if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
+#$global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+#$global:installedchoco = choco list -localonly
+#}
 
 
     Write-Host "`nInstallation in progress..."
@@ -918,9 +1053,15 @@ $global:installedchoco = choco list -localonly
 
     if (Test-Path ~\AppData\Local\Microsoft\WindowsApps\winget.exe) {
         Write-Host "You have the Winget installed"
-        #$wingetapp = winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-        #$wingetapp = winget list
-        #Write-Host $wingetapp
+        
+    if ($global:win -eq 1) {
+    $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+    $global:installedwinget = Winget list | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:installedwinget = Winget list
+
+
+
             if ($global:install_7zip -eq 1) {
 
 
@@ -1237,7 +1378,7 @@ $global:installedchoco = choco list -localonly
                     "[$(TS)] AfterFORMAT [INFO] '$software' is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
                 } else {
                     "[$(TS)] AfterFORMAT [INFO] '$software' NOT is installed " | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-                    Start-Process Powershell.exe -Credential $global:cred 'winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify' #-ArgumentList '-noprofile -command &{Start-Process Powershell -verb runas}'
+                    Start-Process Powershell.exe -Credential $global:cred -NoNewWindow 'winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify' #-ArgumentList '-noprofile -command &{Start-Process Powershell -verb runas}'
                     #winget install -e --silent --accept-source-agreements --accept-package-agreements Spotify.Spotify | Out-Host
                     if($?) { Write-Host "Installed '$software'"}
                 }
@@ -1425,7 +1566,7 @@ $global:installedchoco = choco list -localonly
 
 
 
-    } else {
+    }} else {
         Write-Host "Please install first Winget"
     }
 
@@ -1433,9 +1574,12 @@ $global:installedchoco = choco list -localonly
 
     if (Test-Path "C:\ProgramData\chocolatey\choco.exe") {
         Write-Host "You have the Chocolatey installed"
-        #$global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
-        #$global:installedchoco = choco list -localonly
-
+        
+    if ($global:cho -eq 1) {
+    $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:installed = Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\* | Select DisplayName
+    $global:installedchoco = choco list -localonly | Out-File -FilePath $global:destination\AfterFORMAT.log -Append
+    $global:installedchoco = choco list -localonly
 
 
         
@@ -1483,7 +1627,7 @@ $global:installedchoco = choco list -localonly
 
 
 
-    } else {
+    }} else {
         Write-Host "Please install first Chocolatey"
     }
 
